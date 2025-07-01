@@ -108,3 +108,33 @@ p {
 .main__master__buttons {
 	margin-top: calc(var(--index));
 }
+
+.advantage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: calc(var(--index));
+}
+
+.advantage__blocks {
+	display: flex;
+	flex-direction: row;
+	gap: calc(var(--index));
+	margin-top: calc(var(--index) * 2);
+}
+
+.advantage__blocks__block {
+	width: 20vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: calc(var(--index));
+}
+
+.advantage__blocks__block p {
+	text-align: center;
+}
+
+.advantage__blocks__block__img {
+	width: 50%;
+}
