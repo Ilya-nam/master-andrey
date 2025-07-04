@@ -2,18 +2,15 @@ const accordions = document.querySelectorAll('.accordion')
 
 accordions.forEach(button => {
 	button.addEventListener('click', function () {
-		// Переключение класса активности
 		this.classList.toggle('active')
 
-		// Найти соответствующий panel
 		const panel = this.nextElementSibling
 		if (panel.style.maxHeight) {
 			panel.style.maxHeight = null
 		} else {
-			panel.style.maxHeight = panel.scrollHeight + 'px'
+			panel.style.maxHeight = '400px'
 		}
 
-		// Скрыть или показать стрелку ▼
 		const arrow = this.querySelector('.accordion__down')
 		if (arrow) {
 			arrow.classList.toggle('hidden')
@@ -59,12 +56,10 @@ function submitPromoForm(event) {
 	const name = form.name.value
 	const phone = form.phone.value
 
-	// Можно отправить на сервер через fetch/AJAX
 	alert(`Спасибо, ${name}! Мы свяжемся с вами по телефону: ${phone}`)
 	closePopup()
 }
 
-// Показываем через 20 секунд
 window.addEventListener('load', () => {
 	setTimeout(showPopup, 20000)
 })
@@ -195,7 +190,7 @@ function getVladivostokTime() {
 
 function sendToTelegram(message) {
 	const token = '8062161096:AAHIi5xcvoaoYPukNEZAnfH9Ksld4PsrOwE'
-	const chatId = '6878078718' // <-- Замени на свой chat ID
+	const chatId = '6878078718'
 	const url = `https://api.telegram.org/bot${token}/sendMessage`
 
 	fetch(url, {
@@ -404,16 +399,3 @@ document
 			console.error(err)
 		}
 	})
-
-function clearAllEventListeners() {
-	const allElements = document.querySelectorAll('*')
-	allElements.forEach(element => {
-		const clone = element.cloneNode(true)
-		element.parentNode.replaceChild(clone, element)
-	})
-}
-
-// Очистка всех событий перед переходом на другую страницу
-window.addEventListener('beforeunload', () => {
-	clearAllEventListeners() // Очистка всех обработчиков событий
-})
