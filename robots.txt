@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /temp/
+Disallow: /private/
+Allow: /
+
+Host: master-andrey-valerievich.ru
+Sitemap: https://master-andrey-valerievich.ru/sitemap.xml
