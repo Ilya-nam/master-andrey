@@ -298,6 +298,7 @@ document
 
 				let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
 				localStorage.setItem('leads_sent', leadsSent + 1)
+				ym(103207586, 'reachGoal', 'lead')
 			} else {
 				showFormMessage(
 					'Ошибка: ' + (result.message || 'Попробуйте позже'),
@@ -388,6 +389,7 @@ document
 
 				let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
 				localStorage.setItem('leads_sent', leadsSent + 1)
+				ym(103207586, 'reachGoal', 'lead')
 			} else {
 				showFormMessage(
 					'Ошибка: ' + (result.message || 'Попробуйте позже'),
