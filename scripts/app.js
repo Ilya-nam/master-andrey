@@ -111,6 +111,53 @@ function showFormMessage(text, type = 'success') {
 	}, 4000)
 }
 
+let utmDataString = ''
+
+function collectUTMData() {
+	const urlParams = new URLSearchParams(window.location.search)
+	const allowedKeys = [
+		'utm_source',
+		'utm_medium',
+		'utm_term',
+		'utm_content',
+		'clientID',
+		'yclid',
+	]
+	const parts = []
+
+	urlParams.forEach((value, key) => {
+		if (allowedKeys.includes(key)) {
+			parts.push(`${key}=${encodeURIComponent(value)}`)
+		}
+	})
+
+	utmDataString = parts.join('&')
+}
+
+window.addEventListener('DOMContentLoaded', collectUTMData)
+
+let yandexSearchQuery = null
+
+function getYandexSearchQuery() {
+	try {
+		const ref = document.referrer
+		if (!ref) return null
+
+		const refUrl = new URL(ref)
+		if (refUrl.hostname.includes('yandex.')) {
+			return refUrl.searchParams.get('text')
+		}
+	} catch (e) {
+		return null
+	}
+	return null
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+	yandexSearchQuery = getYandexSearchQuery()
+	console.log('Поисковый запрос Яндекса:', yandexSearchQuery)
+})
+
 const spamNumbers = [
 	'1234567',
 	'2345678',
@@ -164,18 +211,60 @@ function canSendLead() {
 	return leadsSent < 2
 }
 
-function getClientID() {
-	const cookies = document.cookie.split(';')
-	for (let i = 0; i < cookies.length; i++) {
-		let cookie = cookies[i].trim()
-		if (cookie.startsWith('_ym_uid=')) {
-			return cookie.substring('_ym_uid='.length, cookie.length)
+function getYandexClientID(counterId) {
+	// 1. Попытка через cookie _ym_uid
+	function getFromCookie() {
+		const cookies = document.cookie.split(';')
+		for (let cookie of cookies) {
+			cookie = cookie.trim()
+			if (cookie.startsWith('_ym_uid=')) {
+				return cookie.substring('_ym_uid='.length)
+			}
 		}
+		return null
 	}
+
+	// 2. Попытка через API Метрики getClientID (v2 или v1)
+	function getFromAPI() {
+		try {
+			if (window.Ya && window.Ya.Metrika2 && window.Ya.Metrika2[counterId]) {
+				return window.Ya.Metrika2[counterId].getClientID()
+			}
+			if (window.Ya && window.Ya.Metrika && window.Ya.Metrika[counterId]) {
+				return window.Ya.Metrika[counterId].getClientID()
+			}
+		} catch (e) {
+			// игнорируем ошибки
+		}
+		return null
+	}
+
+	// 3. Попытка через cookie yandexuid (если надо)
+	function getFromYandexUidCookie() {
+		const cookies = document.cookie.split(';')
+		for (let cookie of cookies) {
+			cookie = cookie.trim()
+			if (cookie.startsWith('yandexuid=')) {
+				return cookie.substring('yandexuid='.length)
+			}
+		}
+		return null
+	}
+
+	// Попытки получить clientID по очереди
+	let clientID = getFromAPI()
+	if (clientID) return clientID
+
+	clientID = getFromCookie()
+	if (clientID) return clientID
+
+	clientID = getFromYandexUidCookie()
+	if (clientID) return clientID
+
 	return null
 }
 
-const clientID = getClientID()
+const counterId = 103207586
 
 function getVladivostokTime() {
 	const now = new Date()
@@ -209,9 +298,9 @@ function sendToTelegram(message) {
 }
 
 function handleCallClick() {
-	const clientID = getClientID() || 'clientID отсутствует'
+	const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 	const vdkTime = getVladivostokTime()
-	const message = `📞 Клиент нажал "Позвонить"\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID} \nМС: Андрей Валерьевич`
+	const message = `📞 Клиент нажал "Позвонить"\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID} \nМС: Андрей Валерьевич\n UTM: ${utmDataString}\nЗапрос: ${yandexSearchQuery}`
 
 	sendToTelegram(message)
 }
@@ -260,6 +349,7 @@ document
 		}
 
 		const vdkTime = getVladivostokTime()
+		const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 
 		const data = {
 			city_id: 39,
@@ -269,7 +359,7 @@ document
 				desc +
 				'\nЗаявка с сайта частный мастер Андрей Валерьевич\n' +
 				(clientID || 'clientID отсутствует') +
-				`\n${vdkTime}`,
+				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${yandexSearchQuery}`,
 			source_id: 815,
 		}
 
@@ -352,6 +442,7 @@ document
 		}
 
 		const vdkTime = getVladivostokTime()
+		const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 
 		const data = {
 			city_id: 39,
@@ -360,7 +451,7 @@ document
 			description:
 				'Заявка с сайта частный мастер Андрей Валерьевич\n' +
 				(clientID || 'clientID отсутствует') +
-				`\n${vdkTime}`,
+				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${yandexSearchQuery}`,
 			source_id: 815,
 		}
 
