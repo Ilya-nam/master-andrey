@@ -157,6 +157,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	yandexSearchQuery = getYandexSearchQuery()
 })
 
+function getUTMTerm(utmString) {
+	const params = new URLSearchParams(utmString)
+	const utmTerm = params.get('utm_term')
+	return utmTerm ? decodeURIComponent(utmTerm) : null
+}
+
 const spamNumbers = [
 	'1234567',
 	'2345678',
@@ -299,7 +305,9 @@ function sendToTelegram(message) {
 function handleCallClick() {
 	const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 	const vdkTime = getVladivostokTime()
-	const message = `📞 Клиент нажал "Позвонить"\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID} \nМС: Андрей Валерьевич\n UTM: ${utmDataString}\nЗапрос: ${yandexSearchQuery}`
+	const message = `📞 Клиент нажал "Позвонить"\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID} \nМС: Андрей Валерьевич\n UTM: ${utmDataString}\nЗапрос: ${
+		yandexSearchQuery || getUTMTerm(utmDataString)
+	}`
 
 	sendToTelegram(message)
 }
@@ -358,7 +366,9 @@ document
 				desc +
 				'\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт и настройка компьютеров\n' +
 				(clientID || 'clientID отсутствует') +
-				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${yandexSearchQuery}`,
+				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${
+					yandexSearchQuery || getUTMTerm(utmDataString)
+				}`,
 			source_id: 815,
 		}
 
@@ -451,7 +461,9 @@ document
 			description:
 				'Заявка с сайта частный мастер Андрей Валерьевич\nРемонт и настройка компьютеров\n' +
 				(clientID || 'clientID отсутствует') +
-				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${yandexSearchQuery}`,
+				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${
+					yandexSearchQuery || getUTMTerm(utmDataString)
+				}`,
 			source_id: 815,
 		}
 
