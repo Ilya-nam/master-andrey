@@ -120,6 +120,7 @@ function collectUTMData() {
 		'utm_medium',
 		'utm_term',
 		'utm_content',
+		'utm_group',
 		'clientID',
 		'yclid',
 	]
@@ -162,6 +163,12 @@ function getUTMTerm(utmString) {
 	const params = new URLSearchParams(utmString)
 	const utmTerm = params.get('utm_term')
 	return utmTerm ? decodeURIComponent(utmTerm) : null
+}
+
+function getUTMGroup(utmString) {
+	const params = new URLSearchParams(utmString)
+	const utmGroup = params.get('utm_group')
+	return utmGroup ? decodeURIComponent(utmGroup) : null
 }
 
 const spamNumbers = [
@@ -306,10 +313,11 @@ function sendToTelegram(message) {
 function handleCallClick() {
 	const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 	const vdkTime = getVladivostokTime()
-	const message = `📞 Клиент нажал "Позвонить"\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID} \nМС: Андрей Валерьевич\n UTM: ${utmDataString}\nЗапрос: ${
+	const message = `📞 Клиент нажал "Позвонить"\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID}\nЗапрос: ${
 		yandexSearchQuery || getUTMTerm(utmDataString)
-	}`
-
+	}\nГруппа: ${getUTMGroup(
+		utmDataString
+	)}\nМС: Андрей Валерьевич\nUTM: ${utmDataString}`
 	sendToTelegram(message)
 }
 
@@ -364,12 +372,15 @@ document
 			customer_phone: phone,
 			customer_name: name,
 			description:
+				'Описание от клиента:\n' +
 				desc +
-				'\nЗаявка с сайта частный мастер Андрей Валерьевич\n' +
-				(clientID || 'clientID отсутствует') +
-				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${
+				`\nЗаявка с сайта частный мастер Андрей Валерьевич\nИнформация о клиенте:\nClientID: ${
+					clientID || 'clientID отсутствует'
+				}\nЗапрос: ${
 					yandexSearchQuery || getUTMTerm(utmDataString)
-				}`,
+				}\nГруппа: ${getUTMGroup(
+					utmDataString
+				)}\nВремя отправки ВДК: ${vdkTime}\nUTM: ${utmDataString}`,
 			source_id: 815,
 		}
 
@@ -459,12 +470,13 @@ document
 			city_id: 39,
 			customer_phone: phone,
 			customer_name: name,
-			description:
-				'Заявка с сайта частный мастер Андрей Валерьевич\n' +
-				(clientID || 'clientID отсутствует') +
-				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${
-					yandexSearchQuery || getUTMTerm(utmDataString)
-				}`,
+			description: `Описание от клиента:\nБез описания\nЗаявка с сайта частный мастер Андрей Валерьевич\nИнформация о клиенте:\nClientID: ${
+				clientID || 'clientID отсутствует'
+			}\nЗапрос: ${
+				yandexSearchQuery || getUTMTerm(utmDataString)
+			}\nГруппа: ${getUTMGroup(
+				utmDataString
+			)}\nВремя отправки ВДК: ${vdkTime}\nUTM: ${utmDataString}`,
 			source_id: 815,
 		}
 

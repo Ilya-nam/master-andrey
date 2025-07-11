@@ -120,6 +120,7 @@ function collectUTMData() {
 		'utm_medium',
 		'utm_term',
 		'utm_content',
+		'utm_group',
 		'clientID',
 		'yclid',
 	]
@@ -161,6 +162,12 @@ function getUTMTerm(utmString) {
 	const params = new URLSearchParams(utmString)
 	const utmTerm = params.get('utm_term')
 	return utmTerm ? decodeURIComponent(utmTerm) : null
+}
+
+function getUTMGroup(utmString) {
+	const params = new URLSearchParams(utmString)
+	const utmGroup = params.get('utm_group')
+	return utmGroup ? decodeURIComponent(utmGroup) : null
 }
 
 const spamNumbers = [
@@ -304,10 +311,9 @@ function sendToTelegram(message) {
 function handleCallClick() {
 	const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 	const vdkTime = getVladivostokTime()
-	const message = `📞 Клиент нажал "Позвонить"\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID} \nМС: Андрей Валерьевич БТ\n UTM: ${utmDataString}\nЗапрос: ${
+	const message = `📞 Клиент нажал "Позвонить" Ремонт СМ\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID}\nМС: Андрей Валерьевич БТ\nЗапрос: ${
 		yandexSearchQuery || getUTMTerm(utmDataString)
-	}`
-
+	}\nГруппа: ${getUTMGroup(utmDataString)}\nUTM: ${utmDataString}`
 	sendToTelegram(message)
 }
 
@@ -361,13 +367,13 @@ document
 			phones: [phone],
 			name: name,
 			description:
+				'Описание от клиента:\n' +
 				desc +
-				'\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт стиральных машин\n' +
-				'Город не известен УТОЧНИТЬ\nТЕКСТ НИЖЕ НЕОБХОДИМ ДЛЯ СТАТИСТИКИ\n' +
-				clientID +
-				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${
+				`\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт стиральных машин\n Город не известен УТОЧНИТЬ\nИнформация о клиенте:\nclientID: ${clientID}\nГруппа: ${getUTMGroup(
+					utmDataString
+				)}\nЗапрос: ${
 					yandexSearchQuery || getUTMTerm(utmDataString)
-				}`,
+				}\nВремя отправки ВДК: ${vdkTime}\n UTM: ${utmDataString}`,
 			is_pm: true,
 		}
 
@@ -448,13 +454,11 @@ document
 		const data = {
 			phones: [phone],
 			name: name,
-			description:
-				'\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт стиральных машин\n' +
-				'Город не известен УТОЧНИТЬ\nТЕКСТ НИЖЕ НЕОБХОДИМ ДЛЯ СТАТИСТИКИ\n' +
-				clientID +
-				`\n${vdkTime}\n UTM: ${utmDataString}\nЗапрос: ${
-					yandexSearchQuery || getUTMTerm(utmDataString)
-				}`,
+			description: `Описание от клиента:\nБез описания\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт стиральных машин\n Город не известен УТОЧНИТЬ\nИнформация о клиенте\nclientID: ${clientID}\nГруппа: ${getUTMGroup(
+				utmDataString
+			)}\nЗапрос: ${
+				yandexSearchQuery || getUTMTerm(utmDataString)
+			}\nВремя ВДК: ${vdkTime}\n UTM: ${utmDataString}\n`,
 			branch_id: 0,
 			direction_id: 5,
 			is_pm: true,
