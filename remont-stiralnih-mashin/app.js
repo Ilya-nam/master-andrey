@@ -394,7 +394,7 @@ document
 				e.target.reset()
 				let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
 				localStorage.setItem('leads_sent', leadsSent + 1)
-				ym(103207586, 'reachGoal', 'tv_lead')
+				ym(103207586, 'reachGoal', 'stir_lead')
 				sendToTelegram(leadData.description)
 			} else if (response.status === 202) {
 				showFormMessage('Заявка уже была отправлена ранее.', 'info')
@@ -482,7 +482,7 @@ document
 
 				let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
 				localStorage.setItem('leads_sent', leadsSent + 1)
-				ym(103207586, 'reachGoal', 'tv_lead')
+				ym(103207586, 'reachGoal', 'stir_lead')
 				sendToTelegram(data.description)
 			} else {
 				const result = await response.text()
