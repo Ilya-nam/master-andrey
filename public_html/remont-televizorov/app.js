@@ -326,12 +326,18 @@ document
 		const name = document.getElementById('action__name').value.trim()
 		const phone = document.getElementById('action__tel').value.trim()
 		const desc = document.getElementById('action__desc').value.trim()
+		const button = document.getElementById('action__form__button')
+
+		button.disabled = true
+		button.textContent = 'Отправка...'
 
 		if (!phone.startsWith('+7 (9')) {
 			showFormMessage(
 				'Номер должен начинаться с +7 (9. Рекомендуем позвонить нам по телефону',
 				'error'
 			)
+			button.disabled = false
+			button.textContent = 'Отправить'
 			return
 		}
 
@@ -340,6 +346,8 @@ document
 				'Ваша заявка уже обрабатывается, ожидайте или позвоните нам по телефону',
 				'error'
 			)
+			button.disabled = false
+			button.textContent = 'Отправить'
 			return
 		}
 
@@ -348,6 +356,8 @@ document
 				'Недопустимый номер телефона. Рекомендуем позвонить нам по телефону',
 				'error'
 			)
+			button.disabled = false
+			button.textContent = 'Отправить'
 			return
 		}
 
@@ -356,6 +366,8 @@ document
 				'Этот номер не может отправить заявку. Рекомендуем позвонить нам по телефону',
 				'error'
 			)
+			button.disabled = false
+			button.textContent = 'Отправить'
 			return
 		}
 
@@ -409,6 +421,9 @@ document
 		} catch (err) {
 			showFormMessage('Ошибка соединения. Повторите позже.', 'error')
 			console.error(err)
+		} finally {
+			button.disabled = false
+			button.textContent = 'Отправить'
 		}
 	})
 
@@ -419,12 +434,18 @@ document
 
 		const name = document.getElementById('popup__name').value.trim()
 		const phone = document.getElementById('popup__tel').value.trim()
+		const button = document.getElementById('popup__button')
+
+		button.disabled = true
+		button.textContent = 'Отправка...'
 
 		if (!phone.startsWith('+7 (9')) {
 			showFormMessage(
 				'Номер должен начинаться с +7 (9. Рекомендуем позвонить нам по телефону',
 				'error'
 			)
+			button.disabled = false
+			button.textContent = 'Участвовать'
 			return
 		}
 
@@ -433,6 +454,8 @@ document
 				'Ваша заявка уже обрабатывается, ожидайте или позвоните нам по телефону',
 				'error'
 			)
+			button.disabled = false
+			button.textContent = 'Участвовать'
 			return
 		}
 
@@ -441,6 +464,8 @@ document
 				'Недопустимый номер телефона. Рекомендуем позвонить нам по телефону',
 				'error'
 			)
+			button.disabled = false
+			button.textContent = 'Участвовать'
 			return
 		}
 
@@ -449,6 +474,8 @@ document
 				'Этот номер не может отправить заявку. Рекомендуем позвонить нам по телефону',
 				'error'
 			)
+			button.disabled = false
+			button.textContent = 'Участвовать'
 			return
 		}
 
@@ -497,5 +524,8 @@ document
 		} catch (err) {
 			showFormMessage('Ошибка соединения. Повторите позже.', 'error')
 			console.error(err)
+		} finally {
+			button.disabled = false
+			button.textContent = 'Участвовать'
 		}
 	})

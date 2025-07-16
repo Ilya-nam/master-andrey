@@ -47,8 +47,8 @@
 			content="Частный мастер по ремонту компьютеров, ноутбуков, принтеров и телевизоров. Опыт 12 лет, честные цены, быстрый выезд, гарантия до 1 года."
 		/>
 		<link rel="stylesheet" href="style/reset.css" />
-		<link rel="stylesheet" href="style/style.css" />
-		<script src="scripts/app.js?v=13" defer></script>
+		<link rel="stylesheet" href="style/style.css?v=2" />
+		<script src="scripts/app.js?v=14" defer></script>
 	</head>
 	<body>
 		<header class="header">
@@ -351,7 +351,13 @@
 							placeholder="Опишите вашу проблему:"
 							id="action__desc"
 						></textarea>
-						<button type="submit" class="green_button">Отправить</button>
+						<button
+							type="submit"
+							class="green_button"
+							id="action__form__button"
+						>
+							Отправить
+						</button>
 					</form>
 				</section>
 				<section class="reviews">
@@ -470,7 +476,9 @@
 						maxlength="18"
 						required
 					/>
-					<button type="submit" class="green_button">Участвовать</button>
+					<button type="submit" class="green_button" id="popup__button">
+						Участвовать
+					</button>
 				</form>
 			</div>
 		</div>

@@ -57,8 +57,8 @@
 			href="https://master-andrey-valerievich.ru/favicon.png"
 		/>
 		<link rel="stylesheet" href="reset.css" />
-		<link rel="stylesheet" href="style.css" />
-		<script src="app.js?v=13" defer></script>
+		<link rel="stylesheet" href="style.css?v=2" />
+		<script src="app.js?v=14" defer></script>
 	</head>
 	<body>
 		<header class="header">
@@ -380,7 +380,13 @@
 							placeholder="Опишите вашу проблему:"
 							id="action__desc"
 						></textarea>
-						<button type="submit" class="green_button">Отправить</button>
+						<button
+							type="submit"
+							class="green_button"
+							id="action__form__button"
+						>
+							Отправить
+						</button>
 					</form>
 				</section>
 				<section class="reviews">
@@ -502,7 +508,9 @@
 						maxlength="18"
 						required
 					/>
-					<button type="submit" class="green_button">Участвовать</button>
+					<button type="submit" class="green_button" id="popup__button">
+						Участвовать
+					</button>
 				</form>
 			</div>
 		</div>
