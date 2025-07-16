@@ -21,7 +21,7 @@ body {
 	height: calc(var(--index) * 3);
 	width: 100%;
 	position: fixed;
-	z-index: 999;
+	z-index: 998;
 	background-color: #f2f3f4b7;
 }
 
@@ -218,8 +218,11 @@ p {
 
 .services__nav {
 	margin-top: calc(var(--index));
+	margin-left: calc(var(--index) * 2);
+	margin-right: calc(var(--index) * 2);
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	gap: calc(var(--index));
 }
 
@@ -346,7 +349,7 @@ h2 {
 }
 
 table {
-	width: 60%;
+	width: 70%;
 }
 
 th {
@@ -356,7 +359,7 @@ th {
 th,
 td {
 	font-size: calc(var(--index) * 1.2);
-	line-height: calc(var(--index) * 1.5);
+	line-height: calc(var(--index) * 2);
 }
 
 .action {
@@ -575,7 +578,7 @@ td {
 	display: none;
 	align-items: center;
 	justify-content: center;
-	z-index: 1000;
+	z-index: 999;
 }
 
 .popup-overlay.active {

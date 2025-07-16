@@ -4,28 +4,28 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>
-			Ремонт и настройка компьютерной техники — Частный мастер на выезд
+			Ремонт принтеров, МФУ и сканеров — Частный мастер с выездом на дом
 		</title>
 
 		<meta
 			name="description"
-			content="Частный мастер по ремонту и настройке компьютерной техники: ноутбуки, ПК, моноблоки любых марок. Быстро, качественно и по разумной цене. Гарантия до 1 года."
+			content="Частный мастер по ремонту принтеров, МФУ и сканеров: Canon, HP, Epson, Brother и других марок. Заправка картриджей, устранение замятий, настройка печати. Выезд на дом, честные цены, гарантия до 1 года."
 		/>
 
 		<meta
 			name="keywords"
-			content="ремонт компьютеров, настройка компьютера, частный мастер, ремонт ноутбуков, ремонт моноблоков, настройка ПО, мастер на дому, ремонт ПК"
+			content="ремонт принтера, ремонт МФУ, ремонт сканера, заправка картриджей, частный мастер, настройка принтера, не печатает, ошибка печати, замятие бумаги, подключение принтера"
 		/>
 
 		<meta
 			name="author"
-			content="Андрей Валерьевич — частный мастер по ремонту компьютерной техники"
+			content="Андрей Валерьевич — частный мастер по ремонту оргтехники"
 		/>
 
 		<!-- Канонический URL -->
 		<link
 			rel="canonical"
-			href="https://master-andrey-valerievich.ru/remont-kompyuterov/"
+			href="https://master-andrey-valerievich.ru/remont-printerov/"
 		/>
 
 		<!-- Гео и язык -->
@@ -37,15 +37,15 @@
 		<meta property="og:type" content="website" />
 		<meta
 			property="og:title"
-			content="Ремонт и настройка компьютерной техники — Частный мастер на выезд"
+			content="Ремонт принтеров, МФУ и сканеров — Частный мастер"
 		/>
 		<meta
 			property="og:description"
-			content="Профессиональный ремонт и настройка компьютеров, ноутбуков и моноблоков. Качественно, без посредников, с гарантией и индивидуальным подходом."
+			content="Ремонт и заправка принтеров и МФУ у вас дома. Устранение ошибок, настройка печати, чистка, замена деталей. Без посредников, с гарантией и честными ценами."
 		/>
 		<meta
 			property="og:url"
-			content="https://master-andrey-valerievich.ru/remont-kompyuterov/"
+			content="https://master-andrey-valerievich.ru/remont-printerov/"
 		/>
 		<meta
 			property="og:image"
@@ -58,7 +58,7 @@
 		/>
 		<link rel="stylesheet" href="reset.css" />
 		<link rel="stylesheet" href="style.css" />
-		<script src="app.js?v=9" defer></script>
+		<script src="app.js?v=13" defer></script>
 	</head>
 	<body>
 		<header class="header">
@@ -72,7 +72,7 @@
 			</nav>
 			<a
 				href="tel:+79010782932"
-				onclick="handleCallClick(); ym(103207586,'reachGoal','pc_call')"
+				onclick="handleCallClick(); ym(103207586,'reachGoal','print_call')"
 				class="header__call"
 				><img
 					src="/images/phone-call.webp"
@@ -85,10 +85,10 @@
 				<section class="main__master" id="main__master">
 					<div class="main__master__text">
 						<h1>
-							Быстрый и надежный ремонт и настройка
-							<span class="blue_text">компьютеров</span>,
-							<span class="blue_text">ноутбуков</span> и
-							<span class="blue_text">моноблоков</span>
+							Быстрый и надежный ремонт, настройка и подключение
+							<span class="blue_text">принтеров</span>,
+							<span class="blue_text">МФУ</span> и
+							<span class="blue_text">сканеров</span>
 						</h1>
 						<p class="main__master__text__p">
 							Бесплатный выезд, опыт работы больше 10 лет, низкие цены,
@@ -98,7 +98,7 @@
 							<a
 								href="tel:+79010782932"
 								class="call_button green_button"
-								onclick="handleCallClick(); ym(103207586,'reachGoal','pc_call')"
+								onclick="handleCallClick(); ym(103207586,'reachGoal','print_call')"
 								>Позвонить</a
 							>
 							<button class="call_button blue_button" onclick="showPopup()">
@@ -176,132 +176,154 @@
 					<div class="services__blocks">
 						<div class="services__blocks__block">
 							<button class="accordion">
-								<img src="/images/pc.webp" alt="" class="accordion__img" />
-								<p>Компьютер не включается</p>
+								<img
+									src="/images/mfy.webp"
+									alt="Ремонт МФУ"
+									class="accordion__img"
+								/>
+								<p>Ремонт МФУ</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Диагностика питания и комплектующих</p>
-								<p class="panel_text">Ремонт блока питания и замена деталей</p>
-								<p class="panel_text">Восстановление системы запуска</p>
+								<p class="panel_text">Диагностика неисправностей</p>
+								<p class="panel_text">Ремонт и замена комплектующих</p>
+								<p class="panel_text">Устранение проблем с печатью</p>
 							</div>
 						</div>
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img src="/images/laptop.webp" alt="" class="accordion__img" />
-								<p>Ноутбук сильно тормозит</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">
-									Чистка системы охлаждения и замена термопасты
-								</p>
-								<p class="panel_text">Оптимизация ПО и удаление вирусов</p>
-								<p class="panel_text">Увеличение оперативной памяти</p>
-							</div>
-						</div>
+
 						<div class="services__blocks__block">
 							<button class="accordion">
 								<img
-									src="/images/monoblock.webp"
-									alt=""
+									src="/images/mfy.webp"
+									alt="Настройка МФУ"
 									class="accordion__img"
 								/>
-								<p>Проблемы с монитором и изображением</p>
+								<p>Настройка МФУ</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Диагностика матрицы и видеокарты</p>
-								<p class="panel_text">Настройка и калибровка цвета</p>
-								<p class="panel_text">Замена или ремонт дисплея</p>
+								<p class="panel_text">Подключение к сети</p>
+								<p class="panel_text">Установка и настройка ПО</p>
+								<p class="panel_text">Оптимизация работы устройств</p>
 							</div>
 						</div>
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img src="/images/pc.webp" alt="" class="accordion__img" />
-								<p>Установка и настройка ПО</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Установка операционной системы</p>
-								<p class="panel_text">Настройка драйверов и программ</p>
-								<p class="panel_text">Обновление и настройка безопасности</p>
-							</div>
-						</div>
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img src="/images/laptop.webp" alt="" class="accordion__img" />
-								<p>Восстановление данных</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Спасение файлов с повреждённых дисков</p>
-								<p class="panel_text">Восстановление удалённых данных</p>
-								<p class="panel_text">Создание резервных копий</p>
-							</div>
-						</div>
+
 						<div class="services__blocks__block">
 							<button class="accordion">
 								<img
-									src="/images/monoblock.webp"
-									alt=""
+									src="/images/printer.webp"
+									alt="Ремонт принтеров"
 									class="accordion__img"
 								/>
-								<p>Удаление вирусов и вредоносного ПО</p>
+								<p>Ремонт принтеров</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Полная проверка и очистка системы</p>
-								<p class="panel_text">Установка антивирусных программ</p>
-								<p class="panel_text">Настройка защиты и обновлений</p>
+								<p class="panel_text">Устранение неполадок печати</p>
+								<p class="panel_text">Ремонт и замена деталей</p>
+								<p class="panel_text">Чистка и профилактика</p>
 							</div>
 						</div>
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img src="/images/pc.webp" alt="" class="accordion__img" />
-								<p>Замена комплектующих</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">
-									Замена жёстких дисков, SSD, оперативной памяти
-								</p>
-								<p class="panel_text">Ремонт и установка видеокарт</p>
-								<p class="panel_text">
-									Обновление процессоров и материнских плат
-								</p>
-							</div>
-						</div>
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img src="/images/laptop.webp" alt="" class="accordion__img" />
-								<p>Настройка сети и Wi-Fi</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Подключение и настройка роутеров</p>
-								<p class="panel_text">Настройка сетевых адаптеров</p>
-								<p class="panel_text">Решение проблем с подключением</p>
-							</div>
-						</div>
+
 						<div class="services__blocks__block">
 							<button class="accordion">
 								<img
-									src="/images/monoblock.webp"
-									alt=""
+									src="/images/printer.webp"
+									alt="Настройка принтеров"
 									class="accordion__img"
 								/>
-								<p>Консультации и обучение</p>
+								<p>Настройка принтеров</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Обучение работе с ПО и ОС</p>
-								<p class="panel_text">
-									Консультации по выбору техники и комплектующих
-								</p>
-								<p class="panel_text">
-									Советы по оптимизации работы и безопасности
-								</p>
+								<p class="panel_text">Установка драйверов</p>
+								<p class="panel_text">Подключение к ПК и сети</p>
+								<p class="panel_text">Оптимизация печати</p>
+							</div>
+						</div>
+
+						<div class="services__blocks__block">
+							<button class="accordion">
+								<img
+									src="/images/printer.webp"
+									alt="Обслуживание принтеров"
+									class="accordion__img"
+								/>
+								<p>Обслуживание принтеров</p>
+								<p class="accordion__down">▼</p>
+							</button>
+							<div class="panel">
+								<p class="panel_text">Регулярная чистка устройств</p>
+								<p class="panel_text">Проверка механизмов подачи бумаги</p>
+								<p class="panel_text">Консультации по эксплуатации</p>
+							</div>
+						</div>
+
+						<div class="services__blocks__block">
+							<button class="accordion">
+								<img
+									src="/images/scaner.webp"
+									alt="Ремонт сканеров"
+									class="accordion__img"
+								/>
+								<p>Ремонт сканеров</p>
+								<p class="accordion__down">▼</p>
+							</button>
+							<div class="panel">
+								<p class="panel_text">Диагностика и ремонт механизмов</p>
+								<p class="panel_text">Замена комплектующих</p>
+								<p class="panel_text">Устранение проблем со сканированием</p>
+							</div>
+						</div>
+
+						<div class="services__blocks__block">
+							<button class="accordion">
+								<img
+									src="/images/scaner.webp"
+									alt="Настройка сканеров"
+									class="accordion__img"
+								/>
+								<p>Настройка сканеров</p>
+								<p class="accordion__down">▼</p>
+							</button>
+							<div class="panel">
+								<p class="panel_text">Установка и настройка ПО</p>
+								<p class="panel_text">Подключение к компьютеру</p>
+								<p class="panel_text">Оптимизация работы</p>
+							</div>
+						</div>
+
+						<div class="services__blocks__block">
+							<button class="accordion">
+								<img
+									src="/images/scaner.webp"
+									alt="Обслуживание сканеров"
+									class="accordion__img"
+								/>
+								<p>Обслуживание сканеров</p>
+								<p class="accordion__down">▼</p>
+							</button>
+							<div class="panel">
+								<p class="panel_text">Чистка оптических элементов</p>
+								<p class="panel_text">Профилактика механизмов</p>
+								<p class="panel_text">Консультации по эксплуатации</p>
+							</div>
+						</div>
+
+						<div class="services__blocks__block">
+							<button class="accordion">
+								<img
+									src="/images/mfy.webp"
+									alt="Диагностика МФУ"
+									class="accordion__img"
+								/>
+								<p>Диагностика МФУ</p>
+								<p class="accordion__down">▼</p>
+							</button>
+							<div class="panel">
+								<p class="panel_text">Полная проверка устройства</p>
+								<p class="panel_text">Определение причин неисправностей</p>
+								<p class="panel_text">Рекомендации по ремонту и эксплуатации</p>
 							</div>
 						</div>
 					</div>
@@ -345,7 +367,7 @@
 				<section class="price_list" id="price_list">
 					<h1>Актуальные цены</h1>
 
-					<h2>Компьютеры</h2>
+					<h2>Принтеры</h2>
 					<table border="1" cellpadding="8" cellspacing="0">
 						<tr>
 							<th>Услуга</th>
@@ -356,76 +378,40 @@
 							<td>от 500 ₽</td>
 						</tr>
 						<tr>
-							<td>Чистка системы охлаждения и замена термопасты</td>
-							<td>от 750 ₽</td>
-						</tr>
-						<tr>
-							<td>Увеличение оперативной памяти (установка)</td>
-							<td>от 650 ₽</td>
-						</tr>
-						<tr>
-							<td>Замена жёсткого диска или установка SSD</td>
-							<td>от 780 ₽</td>
-						</tr>
-						<tr>
-							<td>Ремонт блока питания</td>
-							<td>от 800 ₽</td>
-						</tr>
-						<tr>
-							<td>Ремонт USB, HDMI и других портов</td>
-							<td>от 750 ₽</td>
-						</tr>
-						<tr>
-							<td>Настройка BIOS и восстановление загрузки</td>
-							<td>от 600 ₽</td>
-						</tr>
-					</table>
-
-					<h2>Ноутбуки</h2>
-					<table border="1" cellpadding="8" cellspacing="0">
-						<tr>
-							<th>Услуга</th>
-							<th>Цена</th>
-						</tr>
-						<tr>
-							<td>Диагностика и консультация</td>
-							<td>от 500 ₽</td>
-						</tr>
-						<tr>
-							<td>Чистка системы охлаждения и замена термопасты</td>
-							<td>от 780 ₽</td>
-						</tr>
-						<tr>
-							<td>Замена матрицы</td>
-							<td>от 800 ₽</td>
-						</tr>
-						<tr>
-							<td>Замена клавиатуры</td>
+							<td>Ремонт и замена комплектующих</td>
 							<td>от 700 ₽</td>
 						</tr>
 						<tr>
-							<td>Увеличение оперативной памяти (установка)</td>
+							<td>Подключение и настройка</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Установка и обновление драйверов</td>
+							<td>от 550 ₽</td>
+						</tr>
+						<tr>
+							<td>Оптимизация печати</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Чистка механизмов подачи бумаги</td>
+							<td>от 700 ₽</td>
+						</tr>
+						<tr>
+							<td>Устранение замятий бумаги</td>
 							<td>от 650 ₽</td>
 						</tr>
 						<tr>
-							<td>Замена жёсткого диска или установка SSD</td>
-							<td>от 780 ₽</td>
-						</tr>
-						<tr>
-							<td>Ремонт блока питания</td>
-							<td>от 800 ₽</td>
-						</tr>
-						<tr>
-							<td>Ремонт USB, HDMI и других портов</td>
-							<td>от 750 ₽</td>
-						</tr>
-						<tr>
-							<td>Настройка BIOS и восстановление загрузки</td>
+							<td>Проверка и ремонт сетевого подключения</td>
 							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Консультация по эксплуатации</td>
+							<td>от 500 ₽</td>
 						</tr>
 					</table>
 
-					<h2>Моноблоки</h2>
+					<h2>МФУ</h2>
 					<table border="1" cellpadding="8" cellspacing="0">
 						<tr>
 							<th>Услуга</th>
@@ -436,68 +422,80 @@
 							<td>от 500 ₽</td>
 						</tr>
 						<tr>
-							<td>Чистка системы охлаждения и замена термопасты</td>
-							<td>от 780 ₽</td>
-						</tr>
-						<tr>
-							<td>Ремонт или замена матрицы</td>
-							<td>от 800 ₽</td>
-						</tr>
-						<tr>
-							<td>Увеличение оперативной памяти (установка)</td>
-							<td>от 650 ₽</td>
-						</tr>
-						<tr>
-							<td>Замена жёсткого диска или установка SSD</td>
-							<td>от 780 ₽</td>
-						</tr>
-						<tr>
-							<td>Ремонт блока питания</td>
-							<td>от 800 ₽</td>
-						</tr>
-						<tr>
-							<td>Ремонт USB, HDMI и других портов</td>
+							<td>Ремонт и замена комплектующих</td>
 							<td>от 750 ₽</td>
 						</tr>
 						<tr>
-							<td>Настройка BIOS и восстановление загрузки</td>
+							<td>Подключение к сети и настройка</td>
+							<td>от 650 ₽</td>
+						</tr>
+						<tr>
+							<td>Установка и настройка ПО</td>
 							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Чистка и профилактика устройства</td>
+							<td>от 700 ₽</td>
+						</tr>
+						<tr>
+							<td>Устранение проблем с печатью и сканированием</td>
+							<td>от 700 ₽</td>
+						</tr>
+						<tr>
+							<td>Оптимизация работы МФУ</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Обновление драйверов и ПО</td>
+							<td>от 550 ₽</td>
+						</tr>
+						<tr>
+							<td>Консультация и обучение пользованию</td>
+							<td>от 500 ₽</td>
 						</tr>
 					</table>
 
-					<h2>Программные услуги</h2>
+					<h2>Сканеры</h2>
 					<table border="1" cellpadding="8" cellspacing="0">
 						<tr>
 							<th>Услуга</th>
 							<th>Цена</th>
 						</tr>
 						<tr>
-							<td>Установка и настройка операционной системы</td>
-							<td>от 780 ₽</td>
+							<td>Диагностика и консультация</td>
+							<td>от 500 ₽</td>
 						</tr>
 						<tr>
-							<td>Удаление вирусов и вредоносного ПО</td>
-							<td>от 800 ₽</td>
-						</tr>
-						<tr>
-							<td>Настройка и обновление драйверов</td>
-							<td>от 650 ₽</td>
-						</tr>
-						<tr>
-							<td>Настройка и оптимизация работы ПО</td>
-							<td>от 650 ₽</td>
-						</tr>
-						<tr>
-							<td>Подключение и настройка Wi-Fi и сетей</td>
-							<td>от 650 ₽</td>
-						</tr>
-						<tr>
-							<td>Восстановление данных</td>
-							<td>от 800 ₽</td>
-						</tr>
-						<tr>
-							<td>Обучение работе с компьютером и программами</td>
+							<td>Ремонт механизмов сканера</td>
 							<td>от 700 ₽</td>
+						</tr>
+						<tr>
+							<td>Замена комплектующих</td>
+							<td>от 750 ₽</td>
+						</tr>
+						<tr>
+							<td>Установка и настройка ПО</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Подключение к компьютеру</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Чистка оптических элементов</td>
+							<td>от 700 ₽</td>
+						</tr>
+						<tr>
+							<td>Профилактика и обслуживание</td>
+							<td>от 650 ₽</td>
+						</tr>
+						<tr>
+							<td>Оптимизация работы сканера</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Консультация по эксплуатации</td>
+							<td>от 500 ₽</td>
 						</tr>
 					</table>
 				</section>
@@ -612,7 +610,7 @@
 						<strong>Телефон:</strong>
 						<a
 							href="tel:+79010782932"
-							onclick="handleCallClick(); ym(103207586,'reachGoal','pc_call')"
+							onclick="handleCallClick(); ym(103207586,'reachGoal','print_call')"
 							>+7 (901) 078-29-32</a
 						>
 					</p>

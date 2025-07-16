@@ -122,6 +122,7 @@ function collectUTMData() {
 		'utm_content',
 		'utm_group',
 		'clientID',
+		'utm_city_id',
 		'yclid',
 	]
 	const parts = []
@@ -168,6 +169,14 @@ function getUTMGroup(utmString) {
 	const params = new URLSearchParams(utmString)
 	const utmGroup = params.get('utm_group')
 	return utmGroup ? decodeURIComponent(utmGroup) : null
+}
+
+function getCityIdFromUTM(utmString, defaultCityId = 0) {
+	const params = new URLSearchParams(utmString)
+	const cityIdParam = params.get('utm_city_id')
+
+	const cityId = parseInt(cityIdParam, 10)
+	return Number.isInteger(cityId) && cityId >= 0 ? cityId : defaultCityId
 }
 
 const spamNumbers = [
@@ -289,33 +298,23 @@ function getVladivostokTime() {
 }
 
 function sendToTelegram(message) {
-	const token = '8062161096:AAHIi5xcvoaoYPukNEZAnfH9Ksld4PsrOwE'
-	const chatId = '6878078718'
-	const url = `https://api.telegram.org/bot${token}/sendMessage`
-
-	fetch(url, {
+	fetch('/api/send_telegram.php', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
 		},
-		body: JSON.stringify({
-			chat_id: chatId,
-			text: message,
-			parse_mode: 'HTML',
-		}),
+		body: JSON.stringify({ message }),
 	}).catch(error => {
 		console.error('Ошибка отправки в Telegram:', error)
 	})
 }
-
 function handleCallClick() {
 	const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 	const vdkTime = getVladivostokTime()
-	const message = `📞 Клиент нажал "Позвонить" Ремонт ТВ\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID} \nЗапрос: ${
+	const message = `📞 Клиент нажал "Позвонить" Ремонт ХД\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID}\nМС: Андрей Валерьевич БТ\nЗапрос: ${
 		yandexSearchQuery || getUTMTerm(utmDataString)
-	}\nГруппа: ${getUTMGroup(
-		utmDataString
-	)}\nМС: Андрей Валерьевич\nUTM: ${utmDataString}`
+	}\nГруппа: ${getUTMGroup(utmDataString)}`
 	sendToTelegram(message)
 }
 
@@ -362,51 +361,49 @@ document
 
 		const vdkTime = getVladivostokTime()
 		const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
+		const cityID = getCityIdFromUTM(utmDataString)
 
-		const data = {
-			city_id: 39,
-			customer_phone: phone,
-			customer_name: name,
+		const leadData = {
+			branch_id: cityID,
+			direction_id: 5,
+			phones: [phone],
+			name: name,
 			description:
 				'Описание от клиента:\n' +
 				desc +
-				`\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт и настройка телевизоров\nИнформация о клиенте:\nClientID: ${
-					clientID || 'clientID отсутствует'
-				}\nЗапрос: ${
-					yandexSearchQuery || getUTMTerm(utmDataString)
-				}\nГруппа: ${getUTMGroup(
+				`\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт холодильников\n Город не известен УТОЧНИТЬ\nИнформация о клиенте:\nclientID: ${clientID}\nГруппа: ${getUTMGroup(
 					utmDataString
-				)}\nВремя отправки ВДК: ${vdkTime}\nUTM: ${utmDataString}`,
-			source_id: 815,
+				)}\nЗапрос: ${
+					yandexSearchQuery || getUTMTerm(utmDataString)
+				}\nВремя отправки ВДК: ${vdkTime}`,
+			is_pm: true,
 		}
 
-		const login = 'A2503.67D7C5BBB62BC6.60174044'
-		const password = '82rvGg9rvLw4W#!'
-		const basicAuth = btoa(`${login}:${password}`)
-
 		try {
-			const response = await fetch(
-				'https://kp-lead-centre.ru/api/customer-request/create',
-				{
-					method: 'POST',
-					headers: {
-						Authorization: `Basic ${basicAuth}`,
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				}
-			)
+			const response = await fetch('/api/send_lead_bt.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest',
+				},
+				body: JSON.stringify(leadData),
+			})
 
 			const result = await response.json()
 
-			if (response.ok && result.result === true) {
-				showFormMessage('Спасибо! Ваша заявка успешно отправлена.', 'success')
-				e.target.reset()
-
-				let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
-				localStorage.setItem('leads_sent', leadsSent + 1)
-				ym(103207586, 'reachGoal', 'tv_lead')
-				sendToTelegram(data.description)
+			if (result.result === true) {
+				if (result.status_code === 204) {
+					showFormMessage('Спасибо! Ваша заявка успешно отправлена.', 'success')
+					e.target.reset()
+					let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
+					localStorage.setItem('leads_sent', leadsSent + 1)
+					ym(103207586, 'reachGoal', 'hd_lead')
+					sendToTelegram(leadData.description)
+				} else if (result.status_code === 202) {
+					showFormMessage('Заявка уже была отправлена ранее.', 'error')
+				} else {
+					showFormMessage('Статус: ' + result.status_code, 'error')
+				}
 			} else {
 				showFormMessage(
 					'Ошибка: ' + (result.message || 'Попробуйте позже'),
@@ -461,48 +458,46 @@ document
 
 		const vdkTime = getVladivostokTime()
 		const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
+		const cityID = getCityIdFromUTM(utmDataString)
 
-		const data = {
-			city_id: 39,
-			customer_phone: phone,
-			customer_name: name,
-			description: `Описание от клиента:\nБез описания\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт и настройка телевизоров\nИнформация о клиенте:\nClientID: ${
-				clientID || 'clientID отсутствует'
-			}\nЗапрос: ${
-				yandexSearchQuery || getUTMTerm(utmDataString)
-			}\nГруппа: ${getUTMGroup(
+		const leadData = {
+			phones: [phone],
+			name: name,
+			description: `Описание от клиента:\nБез описания\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт холодильников\n Город не известен УТОЧНИТЬ\nИнформация о клиенте\nclientID: ${clientID}\nГруппа: ${getUTMGroup(
 				utmDataString
-			)}\nВремя отправки ВДК: ${vdkTime}\nUTM: ${utmDataString}`,
-			source_id: 815,
+			)}\nЗапрос: ${
+				yandexSearchQuery || getUTMTerm(utmDataString)
+			}\nВремя ВДК: ${vdkTime}`,
+			branch_id: cityID,
+			direction_id: 5,
+			is_pm: true,
 		}
 
-		const login = 'A2503.67D7C5BBB62BC6.60174044'
-		const password = '82rvGg9rvLw4W#!'
-		const basicAuth = btoa(`${login}:${password}`)
-
 		try {
-			const response = await fetch(
-				'https://kp-lead-centre.ru/api/customer-request/create',
-				{
-					method: 'POST',
-					headers: {
-						Authorization: `Basic ${basicAuth}`,
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				}
-			)
+			const response = await fetch('/api/send_lead_bt.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest',
+				},
+				body: JSON.stringify(leadData),
+			})
 
 			const result = await response.json()
 
-			if (response.ok && result.result === true) {
-				showFormMessage('Спасибо! Ваша заявка успешно отправлена.', 'success')
-				e.target.reset()
-
-				let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
-				localStorage.setItem('leads_sent', leadsSent + 1)
-				ym(103207586, 'reachGoal', 'tv_lead')
-				sendToTelegram(data.description)
+			if (result.result === true) {
+				if (result.status_code === 204) {
+					showFormMessage('Спасибо! Ваша заявка успешно отправлена.', 'success')
+					e.target.reset()
+					let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
+					localStorage.setItem('leads_sent', leadsSent + 1)
+					ym(103207586, 'reachGoal', 'hd_lead')
+					sendToTelegram(leadData.description)
+				} else if (result.status_code === 202) {
+					showFormMessage('Заявка уже была отправлена ранее.', 'error')
+				} else {
+					showFormMessage('Статус: ' + result.status_code, 'error')
+				}
 			} else {
 				showFormMessage(
 					'Ошибка: ' + (result.message || 'Попробуйте позже'),

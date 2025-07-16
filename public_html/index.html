@@ -4,61 +4,51 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>
-			Ремонт принтеров, МФУ и сканеров — Частный мастер с выездом на дом
+			Ремонт компьютеров, принтеров и телевизоров — Частный мастер с выездом на
+			дом
 		</title>
-
-		<meta
-			name="description"
-			content="Частный мастер по ремонту принтеров, МФУ и сканеров: Canon, HP, Epson, Brother и других марок. Заправка картриджей, устранение замятий, настройка печати. Выезд на дом, честные цены, гарантия до 1 года."
-		/>
-
 		<meta
 			name="keywords"
-			content="ремонт принтера, ремонт МФУ, ремонт сканера, заправка картриджей, частный мастер, настройка принтера, не печатает, ошибка печати, замятие бумаги, подключение принтера"
+			content="ремонт компьютеров, ремонт ноутбуков, ремонт принтеров, ремонт телевизоров, частный мастер, заправка принтера, выездной ремонт техники"
 		/>
 
 		<meta
 			name="author"
-			content="Андрей Валерьевич — частный мастер по ремонту оргтехники"
+			content="Андрей Валерьевич, частный мастер по ремонту техники"
 		/>
+		<link rel="canonical" href="https://master-andrey-valerievich.ru/" />
 
-		<!-- Канонический URL -->
-		<link
-			rel="canonical"
-			href="https://master-andrey-valerievich.ru/remont-printerov/"
-		/>
-
-		<!-- Гео и язык -->
 		<meta name="geo.region" content="RU" />
 		<meta http-equiv="Content-Language" content="ru" />
 		<meta property="og:locale" content="ru_RU" />
 
-		<!-- Open Graph -->
-		<meta property="og:type" content="website" />
 		<meta
 			property="og:title"
-			content="Ремонт принтеров, МФУ и сканеров — Частный мастер"
+			content="Ремонт компьютеров, принтеров и телевизоров — Частный мастер"
 		/>
 		<meta
 			property="og:description"
-			content="Ремонт и заправка принтеров и МФУ у вас дома. Устранение ошибок, настройка печати, чистка, замена деталей. Без посредников, с гарантией и честными ценами."
+			content="Надежный ремонт техники: ПК, ноутбуков, принтеров, телевизоров. Без посредников, с гарантией и выездом на дом."
 		/>
-		<meta
-			property="og:url"
-			content="https://master-andrey-valerievich.ru/remont-printerov/"
-		/>
+		<meta property="og:type" content="website" />
 		<meta
 			property="og:image"
 			content="https://master-andrey-valerievich.ru/images/master.webp"
 		/>
+		<meta property="og:url" content="https://master-andrey-valerievich.ru/" />
+
 		<link
 			rel="icon"
 			type="image/png"
 			href="https://master-andrey-valerievich.ru/favicon.png"
 		/>
-		<link rel="stylesheet" href="reset.css" />
-		<link rel="stylesheet" href="style.css" />
-		<script src="app.js?v=9" defer></script>
+		<meta
+			name="description"
+			content="Частный мастер по ремонту компьютеров, ноутбуков, принтеров и телевизоров. Опыт 12 лет, честные цены, быстрый выезд, гарантия до 1 года."
+		/>
+		<link rel="stylesheet" href="style/reset.css" />
+		<link rel="stylesheet" href="style/style.css" />
+		<script src="scripts/app.js?v=13" defer></script>
 	</head>
 	<body>
 		<header class="header">
@@ -72,10 +62,10 @@
 			</nav>
 			<a
 				href="tel:+79010782932"
-				onclick="handleCallClick(); ym(103207586,'reachGoal','print_call')"
+				onclick="handleCallClick(); ym(103207586,'reachGoal','call')"
 				class="header__call"
 				><img
-					src="/images/phone-call.webp"
+					src="images/phone-call.webp"
 					alt=""
 					class="header__call_img blue_button"
 			/></a>
@@ -85,10 +75,10 @@
 				<section class="main__master" id="main__master">
 					<div class="main__master__text">
 						<h1>
-							Быстрый и надежный ремонт, настройка и подключение
-							<span class="blue_text">принтеров</span>,
-							<span class="blue_text">МФУ</span> и
-							<span class="blue_text">сканеров</span>
+							Быстрый и надежный ремонт
+							<span class="blue_text">компьютерной</span> техники,
+							<span class="blue_text">принтеров</span> и
+							<span class="blue_text">телевизоров</span>
 						</h1>
 						<p class="main__master__text__p">
 							Бесплатный выезд, опыт работы больше 10 лет, низкие цены,
@@ -98,7 +88,7 @@
 							<a
 								href="tel:+79010782932"
 								class="call_button green_button"
-								onclick="handleCallClick(); ym(103207586,'reachGoal','print_call')"
+								onclick="handleCallClick(); ym(103207586,'reachGoal','call')"
 								>Позвонить</a
 							>
 							<button class="call_button blue_button" onclick="showPopup()">
@@ -106,14 +96,14 @@
 							</button>
 						</div>
 					</div>
-					<img src="/images/master.webp" alt="" class="main__master__img" />
+					<img src="images/master.webp" alt="" class="main__master__img" />
 				</section>
 				<section class="advantage">
 					<h1>Почему выбирают <span class="blue_text">меня</span></h1>
 					<div class="advantage__blocks">
 						<div class="advantage__blocks__block">
 							<img
-								src="/images/time.webp"
+								src="images/time.webp"
 								class="advantage__blocks__block__img"
 								alt=""
 							/>
@@ -121,7 +111,7 @@
 						</div>
 						<div class="advantage__blocks__block">
 							<img
-								src="/images/like.webp"
+								src="images/like.webp"
 								class="advantage__blocks__block__img"
 								alt=""
 							/>
@@ -129,7 +119,7 @@
 						</div>
 						<div class="advantage__blocks__block">
 							<img
-								src="/images/shield.webp"
+								src="images/shield.webp"
 								class="advantage__blocks__block__img"
 								alt=""
 							/>
@@ -137,7 +127,7 @@
 						</div>
 						<div class="advantage__blocks__block">
 							<img
-								src="/images/money.webp"
+								src="images/money.webp"
 								class="advantage__blocks__block__img"
 								alt=""
 							/>
@@ -148,7 +138,7 @@
 				<section
 					class="services"
 					id="services"
-					style="background-image: url(/images/background2.webp)"
+					style="background-image: url(images/background2.webp)"
 				>
 					<h1>С чем я работаю</h1>
 					<nav class="services__nav">
@@ -177,153 +167,40 @@
 						<div class="services__blocks__block">
 							<button class="accordion">
 								<img
-									src="/images/mfy.webp"
-									alt="Ремонт МФУ"
+									src="images/monoblock.webp"
+									alt=""
 									class="accordion__img"
 								/>
-								<p>Ремонт МФУ</p>
+								<p>Ремонт компьютеров</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Диагностика неисправностей</p>
-								<p class="panel_text">Ремонт и замена комплектующих</p>
-								<p class="panel_text">Устранение проблем с печатью</p>
-							</div>
-						</div>
-
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img
-									src="/images/mfy.webp"
-									alt="Настройка МФУ"
-									class="accordion__img"
-								/>
-								<p>Настройка МФУ</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Подключение к сети</p>
+								<p class="panel_text">Чистка и замена термопасты</p>
+								<p class="panel_text">Ремонт или замена комплектующих</p>
 								<p class="panel_text">Установка и настройка ПО</p>
-								<p class="panel_text">Оптимизация работы устройств</p>
 							</div>
 						</div>
-
 						<div class="services__blocks__block">
 							<button class="accordion">
-								<img
-									src="/images/printer.webp"
-									alt="Ремонт принтеров"
-									class="accordion__img"
-								/>
-								<p>Ремонт принтеров</p>
+								<img src="images/mfy.webp" alt="" class="accordion__img" />
+								<p>Ремонт оргтехники</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Устранение неполадок печати</p>
-								<p class="panel_text">Ремонт и замена деталей</p>
-								<p class="panel_text">Чистка и профилактика</p>
+								<p class="panel_text">Подключение и настройка</p>
+								<p class="panel_text">Ремонт или замена комплектующих</p>
+								<p class="panel_text">Чистка</p>
 							</div>
 						</div>
-
 						<div class="services__blocks__block">
 							<button class="accordion">
-								<img
-									src="/images/printer.webp"
-									alt="Настройка принтеров"
-									class="accordion__img"
-								/>
-								<p>Настройка принтеров</p>
+								<img src="images/tv.webp" alt="" class="accordion__img" />
+								<p>Ремонт телевизоров</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Установка драйверов</p>
-								<p class="panel_text">Подключение к ПК и сети</p>
-								<p class="panel_text">Оптимизация печати</p>
-							</div>
-						</div>
-
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img
-									src="/images/printer.webp"
-									alt="Обслуживание принтеров"
-									class="accordion__img"
-								/>
-								<p>Обслуживание принтеров</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Регулярная чистка устройств</p>
-								<p class="panel_text">Проверка механизмов подачи бумаги</p>
-								<p class="panel_text">Консультации по эксплуатации</p>
-							</div>
-						</div>
-
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img
-									src="/images/scaner.webp"
-									alt="Ремонт сканеров"
-									class="accordion__img"
-								/>
-								<p>Ремонт сканеров</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Диагностика и ремонт механизмов</p>
-								<p class="panel_text">Замена комплектующих</p>
-								<p class="panel_text">Устранение проблем со сканированием</p>
-							</div>
-						</div>
-
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img
-									src="/images/scaner.webp"
-									alt="Настройка сканеров"
-									class="accordion__img"
-								/>
-								<p>Настройка сканеров</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Установка и настройка ПО</p>
-								<p class="panel_text">Подключение к компьютеру</p>
-								<p class="panel_text">Оптимизация работы</p>
-							</div>
-						</div>
-
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img
-									src="/images/scaner.webp"
-									alt="Обслуживание сканеров"
-									class="accordion__img"
-								/>
-								<p>Обслуживание сканеров</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Чистка оптических элементов</p>
-								<p class="panel_text">Профилактика механизмов</p>
-								<p class="panel_text">Консультации по эксплуатации</p>
-							</div>
-						</div>
-
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img
-									src="/images/mfy.webp"
-									alt="Диагностика МФУ"
-									class="accordion__img"
-								/>
-								<p>Диагностика МФУ</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Полная проверка устройства</p>
-								<p class="panel_text">Определение причин неисправностей</p>
-								<p class="panel_text">Рекомендации по ремонту и эксплуатации</p>
+								<p class="panel_text">Подключение и настройка</p>
+								<p class="panel_text">Ремонт или замена комплектующих</p>
 							</div>
 						</div>
 					</div>
@@ -358,7 +235,7 @@
 							</p>
 						</div>
 						<img
-							src="/images/master-son.webp"
+							src="images/master-son.webp"
 							alt=""
 							class="about_me__main__img"
 						/>
@@ -367,7 +244,7 @@
 				<section class="price_list" id="price_list">
 					<h1>Актуальные цены</h1>
 
-					<h2>Принтеры</h2>
+					<h2>Компьютеры и ноутбуки</h2>
 					<table border="1" cellpadding="8" cellspacing="0">
 						<tr>
 							<th>Услуга</th>
@@ -378,130 +255,74 @@
 							<td>от 500 ₽</td>
 						</tr>
 						<tr>
-							<td>Ремонт и замена комплектующих</td>
+							<td>Установка Windows</td>
+							<td>от 800 ₽</td>
+						</tr>
+						<tr>
+							<td>Установка драйверов</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Чистка от пыли и замена термопасты</td>
+							<td>от 800 ₽</td>
+						</tr>
+						<tr>
+							<td>Удаление вирусов</td>
+							<td>от 700 ₽</td>
+						</tr>
+					</table>
+
+					<h2>Оргтехника</h2>
+					<table border="1" cellpadding="8" cellspacing="0">
+						<tr>
+							<th>Услуга</th>
+							<th>Цена</th>
+						</tr>
+						<tr>
+							<td>Заправка картриджа</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Чистка печки принтера</td>
 							<td>от 700 ₽</td>
 						</tr>
 						<tr>
-							<td>Подключение и настройка</td>
-							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Установка и обновление драйверов</td>
-							<td>от 550 ₽</td>
-						</tr>
-						<tr>
-							<td>Оптимизация печати</td>
-							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Чистка механизмов подачи бумаги</td>
+							<td>Замена роликов захвата бумаги</td>
 							<td>от 700 ₽</td>
 						</tr>
 						<tr>
-							<td>Устранение замятий бумаги</td>
-							<td>от 650 ₽</td>
-						</tr>
-						<tr>
-							<td>Проверка и ремонт сетевого подключения</td>
-							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Консультация по эксплуатации</td>
+							<td>Диагностика МФУ</td>
 							<td>от 500 ₽</td>
 						</tr>
 					</table>
 
-					<h2>МФУ</h2>
+					<h2>Телевизоры</h2>
 					<table border="1" cellpadding="8" cellspacing="0">
 						<tr>
 							<th>Услуга</th>
 							<th>Цена</th>
 						</tr>
 						<tr>
-							<td>Диагностика и консультация</td>
+							<td>Настройка каналов и меню</td>
+							<td>от 600 ₽</td>
+						</tr>
+						<tr>
+							<td>Настройка Wi-Fi и приложений</td>
+							<td>от 800 ₽</td>
+						</tr>
+						<tr>
+							<td>Диагностика телевизора</td>
 							<td>от 500 ₽</td>
 						</tr>
 						<tr>
-							<td>Ремонт и замена комплектующих</td>
-							<td>от 750 ₽</td>
-						</tr>
-						<tr>
-							<td>Подключение к сети и настройка</td>
-							<td>от 650 ₽</td>
-						</tr>
-						<tr>
-							<td>Установка и настройка ПО</td>
+							<td>Настройка цифровых каналов</td>
 							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Чистка и профилактика устройства</td>
-							<td>от 700 ₽</td>
-						</tr>
-						<tr>
-							<td>Устранение проблем с печатью и сканированием</td>
-							<td>от 700 ₽</td>
-						</tr>
-						<tr>
-							<td>Оптимизация работы МФУ</td>
-							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Обновление драйверов и ПО</td>
-							<td>от 550 ₽</td>
-						</tr>
-						<tr>
-							<td>Консультация и обучение пользованию</td>
-							<td>от 500 ₽</td>
-						</tr>
-					</table>
-
-					<h2>Сканеры</h2>
-					<table border="1" cellpadding="8" cellspacing="0">
-						<tr>
-							<th>Услуга</th>
-							<th>Цена</th>
-						</tr>
-						<tr>
-							<td>Диагностика и консультация</td>
-							<td>от 500 ₽</td>
-						</tr>
-						<tr>
-							<td>Ремонт механизмов сканера</td>
-							<td>от 700 ₽</td>
-						</tr>
-						<tr>
-							<td>Замена комплектующих</td>
-							<td>от 750 ₽</td>
-						</tr>
-						<tr>
-							<td>Установка и настройка ПО</td>
-							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Подключение к компьютеру</td>
-							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Чистка оптических элементов</td>
-							<td>от 700 ₽</td>
-						</tr>
-						<tr>
-							<td>Профилактика и обслуживание</td>
-							<td>от 650 ₽</td>
-						</tr>
-						<tr>
-							<td>Оптимизация работы сканера</td>
-							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Консультация по эксплуатации</td>
-							<td>от 500 ₽</td>
 						</tr>
 					</table>
 				</section>
 				<section
 					class="action"
-					style="background-image: url(/images/background2.webp)"
+					style="background-image: url(images/background2.webp)"
 				>
 					<div class="action__text">
 						<h1 class="blue_text">Остались вопросы?</h1>
@@ -610,8 +431,8 @@
 						<strong>Телефон:</strong>
 						<a
 							href="tel:+79010782932"
-							onclick="handleCallClick(); ym(103207586,'reachGoal','print_call')"
-							>+7 (901) 078-29-32</a
+							onclick="handleCallClick(); ym(103207586,'reachGoal','call')"
+							>+7(901) 078-29-32</a
 						>
 					</p>
 					<p><strong>Режим работы:</strong> Пн–Вс, 9:00–21:00</p>

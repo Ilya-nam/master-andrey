@@ -122,6 +122,7 @@ function collectUTMData() {
 		'utm_content',
 		'utm_group',
 		'clientID',
+		'utm_city_id',
 		'yclid',
 	]
 	const parts = []
@@ -168,6 +169,14 @@ function getUTMGroup(utmString) {
 	const params = new URLSearchParams(utmString)
 	const utmGroup = params.get('utm_group')
 	return utmGroup ? decodeURIComponent(utmGroup) : null
+}
+
+function getCityIdFromUTM(utmString, defaultCityId = 39) {
+	const params = new URLSearchParams(utmString)
+	const cityIdParam = params.get('utm_city_id')
+
+	const cityId = parseInt(cityIdParam, 10)
+	return Number.isInteger(cityId) && cityId > 0 ? cityId : defaultCityId
 }
 
 const spamNumbers = [
@@ -290,33 +299,23 @@ function getVladivostokTime() {
 }
 
 function sendToTelegram(message) {
-	const token = '8062161096:AAHIi5xcvoaoYPukNEZAnfH9Ksld4PsrOwE'
-	const chatId = '6878078718'
-	const url = `https://api.telegram.org/bot${token}/sendMessage`
-
-	fetch(url, {
+	fetch('/api/send_telegram.php', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
 		},
-		body: JSON.stringify({
-			chat_id: chatId,
-			text: message,
-			parse_mode: 'HTML',
-		}),
+		body: JSON.stringify({ message }),
 	}).catch(error => {
 		console.error('Ошибка отправки в Telegram:', error)
 	})
 }
-
 function handleCallClick() {
 	const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 	const vdkTime = getVladivostokTime()
 	const message = `📞 Клиент нажал "Позвонить" Ремонт ПК\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID} \nЗапрос: ${
 		yandexSearchQuery || getUTMTerm(utmDataString)
-	}\nГруппа: ${getUTMGroup(
-		utmDataString
-	)}\nМС: Андрей Валерьевич\nUTM: ${utmDataString}`
+	}\nГруппа: ${getUTMGroup(utmDataString)}\nМС: Андрей Валерьевич`
 	sendToTelegram(message)
 }
 
@@ -363,9 +362,10 @@ document
 
 		const vdkTime = getVladivostokTime()
 		const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
+		const cityID = getCityIdFromUTM(utmDataString)
 
 		const data = {
-			city_id: 39,
+			city_id: cityID,
 			customer_phone: phone,
 			customer_name: name,
 			description:
@@ -377,26 +377,19 @@ document
 					yandexSearchQuery || getUTMTerm(utmDataString)
 				}\nГруппа: ${getUTMGroup(
 					utmDataString
-				)}\nВремя отправки ВДК: ${vdkTime}\nUTM: ${utmDataString}`,
+				)}\nВремя отправки ВДК: ${vdkTime}`,
 			source_id: 815,
 		}
 
-		const login = 'A2503.67D7C5BBB62BC6.60174044'
-		const password = '82rvGg9rvLw4W#!'
-		const basicAuth = btoa(`${login}:${password}`)
-
 		try {
-			const response = await fetch(
-				'https://kp-lead-centre.ru/api/customer-request/create',
-				{
-					method: 'POST',
-					headers: {
-						Authorization: `Basic ${basicAuth}`,
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				}
-			)
+			const response = await fetch('/api/send_lead.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest',
+				},
+				body: JSON.stringify(data),
+			})
 
 			const result = await response.json()
 
@@ -462,37 +455,29 @@ document
 
 		const vdkTime = getVladivostokTime()
 		const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
+		const cityID = getCityIdFromUTM(utmDataString)
 
 		const data = {
-			city_id: 39,
+			city_id: cityID,
 			customer_phone: phone,
 			customer_name: name,
 			description: `Описание от клиента:\nБез описания\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт и настройка компьютеров\nИнформация о клиенте:\nClientID: ${
 				clientID || 'clientID отсутствует'
 			}\nЗапрос: ${
 				yandexSearchQuery || getUTMTerm(utmDataString)
-			}\nГруппа: ${getUTMGroup(
-				utmDataString
-			)}\nВремя отправки ВДК: ${vdkTime}\nUTM: ${utmDataString}`,
+			}\nГруппа: ${getUTMGroup(utmDataString)}\nВремя отправки ВДК: ${vdkTime}`,
 			source_id: 815,
 		}
 
-		const login = 'A2503.67D7C5BBB62BC6.60174044'
-		const password = '82rvGg9rvLw4W#!'
-		const basicAuth = btoa(`${login}:${password}`)
-
 		try {
-			const response = await fetch(
-				'https://kp-lead-centre.ru/api/customer-request/create',
-				{
-					method: 'POST',
-					headers: {
-						Authorization: `Basic ${basicAuth}`,
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				}
-			)
+			const response = await fetch('/api/send_lead.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest',
+				},
+				body: JSON.stringify(data),
+			})
 
 			const result = await response.json()
 

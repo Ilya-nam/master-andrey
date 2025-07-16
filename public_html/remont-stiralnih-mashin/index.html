@@ -3,27 +3,29 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Ремонт и настройка холодильников Частный мастер с выездом</title>
+		<title>
+			Ремонт и настройка стиральных машин — Частный мастер с выездом
+		</title>
 
 		<meta
 			name="description"
-			content="Частный мастер по ремонту и настройке холодильников любых марок: Samsung, LG и других. Быстрый выезд, честные цены, гарантия до 1 года."
+			content="Частный мастер по ремонту и настройке стиральных машин любых марок: Samsung, LG и других. Быстрый выезд, честные цены, гарантия до 1 года."
 		/>
 
 		<meta
 			name="keywords"
-			content="ремонт холодильников, настройка холодильников, частный мастер"
+			content="ремонт стиральных машин, настройка стиральных машин, частный мастер"
 		/>
 
 		<meta
 			name="author"
-			content="Андрей Валерьевич — частный мастер по ремонту холодильников"
+			content="Андрей Валерьевич — частный мастер по ремонту стиральных машин"
 		/>
 
 		<!-- Канонический URL -->
 		<link
 			rel="canonical"
-			href="https://master-andrey-valerievich.ru/remont-holodilnikov/"
+			href="https://master-andrey-valerievich.ru/remont-stiralnih-mashin/"
 		/>
 
 		<!-- Гео и язык -->
@@ -35,19 +37,19 @@
 		<meta property="og:type" content="website" />
 		<meta
 			property="og:title"
-			content="Ремонт и настройка холодильников — Частный мастер"
+			content="Ремонт и настройка стиральных машин — Частный мастер"
 		/>
 		<meta
 			property="og:description"
-			content="Профессиональный ремонт холодильников с выездом на дом. Без посредников и с гарантией."
+			content="Профессиональный ремонт стиральных машин с выездом на дом. Без посредников и с гарантией."
 		/>
 		<meta
 			property="og:url"
-			content="https://master-andrey-valerievich.ru/remont-holodilnikov/"
+			content="https://master-andrey-valerievich.ru/remont-stiralnih-mashin/"
 		/>
 		<meta
 			property="og:image"
-			content="https://master-andrey-valerievich.ru/images/master-hd.webp"
+			content="https://master-andrey-valerievich.ru/images/master-stir.webp"
 		/>
 		<link
 			rel="icon"
@@ -56,7 +58,7 @@
 		/>
 		<link rel="stylesheet" href="reset.css" />
 		<link rel="stylesheet" href="style.css" />
-		<script src="app.js?v=9" defer></script>
+		<script src="app.js?v=13" defer></script>
 	</head>
 	<body>
 		<header class="header">
@@ -70,7 +72,7 @@
 			</nav>
 			<a
 				href="tel:+79010783108"
-				onclick="handleCallClick(); ym(103207586,'reachGoal','hd_call')"
+				onclick="handleCallClick(); ym(103207586,'reachGoal','stir_call')"
 				class="header__call"
 				><img
 					src="/images/phone-call.webp"
@@ -84,7 +86,7 @@
 					<div class="main__master__text">
 						<h1>
 							Быстрый и надежный ремонт, чистка и настройка
-							<span class="blue_text">холодильников</span>.
+							<span class="blue_text">стиральных машин</span>.
 						</h1>
 						<p class="main__master__text__p">
 							Бесплатный выезд, опыт работы больше 10 лет, низкие цены,
@@ -94,7 +96,7 @@
 							<a
 								href="tel:+79010783108"
 								class="call_button green_button"
-								onclick="handleCallClick(); ym(103207586,'reachGoal','hd_call')"
+								onclick="handleCallClick(); ym(103207586,'reachGoal','stir_call')"
 								>Позвонить</a
 							>
 							<button class="call_button blue_button" onclick="showPopup()">
@@ -102,7 +104,11 @@
 							</button>
 						</div>
 					</div>
-					<img src="/images/master-hd.webp" alt="" class="main__master__img" />
+					<img
+						src="/images/master-stir.webp"
+						alt=""
+						class="main__master__img"
+					/>
 				</section>
 				<section class="advantage">
 					<h1>Почему выбирают <span class="blue_text">меня</span></h1>
@@ -173,23 +179,39 @@
 						<div class="services__blocks__block">
 							<button class="accordion">
 								<img
-									src="/images/hd_ne_moroz.webp"
+									src="/images/stir_ne_sliv.webp"
 									alt=""
 									class="accordion__img"
 								/>
-								<p>Не морозит</p>
+								<p>Не сливает воду</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Засор капиллярной системы</p>
-								<p class="panel_text">Неисправность вентилятора</p>
-								<p class="panel_text">Неисправность модуля</p>
+								<p class="panel_text">Диагностика причины неисправности</p>
+								<p class="panel_text">Ремонт прессостата</p>
+								<p class="panel_text">Устранение засора</p>
 							</div>
 						</div>
 						<div class="services__blocks__block">
 							<button class="accordion">
 								<img
-									src="/images/hd_ne_otkr.webp"
+									src="/images/stir_tech.webp"
+									alt=""
+									class="accordion__img"
+								/>
+								<p>Протекает</p>
+								<p class="accordion__down">▼</p>
+							</button>
+							<div class="panel">
+								<p class="panel_text">Повреждение патрубков или шлангов</p>
+								<p class="panel_text">Большое давление в системе подачи воды</p>
+								<p class="panel_text">Поврежден корпуса бака</p>
+							</div>
+						</div>
+						<div class="services__blocks__block">
+							<button class="accordion">
+								<img
+									src="/images/stir_ne_vkl.webp"
 									alt=""
 									class="accordion__img"
 								/>
@@ -197,47 +219,29 @@
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Неисправность модуля</p>
+								<p class="panel_text">Поврежден кабель питания</p>
+								<p class="panel_text">Неисправен модуль управления</p>
 								<p class="panel_text">
-									Неисправность термостата или температурного датчика
+									Неисправен ФПС или произошел обрыв питания в цепи узла
 								</p>
-								<p class="panel_text">Неисправность компрессора</p>
 							</div>
 						</div>
 						<div class="services__blocks__block">
 							<button class="accordion">
-								<img src="/images/hd_tech.webp" alt="" class="accordion__img" />
-								<p>Протекает</p>
+								<img
+									src="/images/stir_block.webp"
+									alt=""
+									class="accordion__img"
+								/>
+								<p>Не открывается</p>
 								<p class="accordion__down">▼</p>
 							</button>
 							<div class="panel">
-								<p class="panel_text">Засор дренажа</p>
-								<p class="panel_text">Не работает клапан дренажной системы</p>
-								<p class="panel_text">Неисправен ТЭН каплепадения</p>
-							</div>
-						</div>
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img src="/images/hd_shym.webp" alt="" class="accordion__img" />
-								<p>Шумит или пищит</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Неисправна крыльчатка</p>
-								<p class="panel_text">Не работает вентилятор</p>
-								<p class="panel_text">Не работает система оттайки</p>
-							</div>
-						</div>
-						<div class="services__blocks__block">
-							<button class="accordion">
-								<img src="/images/hd_err.webp" alt="" class="accordion__img" />
-								<p>Ошибка на экране</p>
-								<p class="accordion__down">▼</p>
-							</button>
-							<div class="panel">
-								<p class="panel_text">Программный сбой модуля управления</p>
-								<p class="panel_text">Не работают элементы управления</p>
-								<p class="panel_text">Слабое охлаждение в камерах</p>
+								<p class="panel_text">Неисправно устройство блокировки люка</p>
+								<p class="panel_text">
+									Сломана ручка люка или защелка замка блокировки
+								</p>
+								<p class="panel_text">Не работает сливной насос</p>
 							</div>
 						</div>
 					</div>
@@ -272,7 +276,7 @@
 							</p>
 						</div>
 						<img
-							src="/images/master-hd2.webp"
+							src="/images/abot_stir.webp"
 							alt=""
 							class="about_me__main__img"
 						/>
@@ -281,7 +285,7 @@
 				<section class="price_list" id="price_list">
 					<h1>Актуальные цены</h1>
 
-					<h2>Холодильники</h2>
+					<h2>Стиральные машины</h2>
 					<table border="1" cellpadding="8" cellspacing="0">
 						<tr>
 							<th>Услуга</th>
@@ -292,51 +296,51 @@
 							<td>от 500 ₽</td>
 						</tr>
 						<tr>
-							<td>Заправка хладагентом (фреоном)</td>
+							<td>Замена ТЭНа (нагревательного элемента)</td>
 							<td>от 1000 ₽</td>
 						</tr>
 						<tr>
-							<td>Ремонт или замена термостата</td>
-							<td>от 900 ₽</td>
-						</tr>
-						<tr>
-							<td>Замена компрессора</td>
+							<td>Ремонт или замена двигателя</td>
 							<td>от 1500 ₽</td>
 						</tr>
 						<tr>
-							<td>Ремонт или замена платы управления</td>
+							<td>Ремонт платы управления</td>
 							<td>от 1300 ₽</td>
 						</tr>
 						<tr>
-							<td>Чистка дренажной системы</td>
-							<td>от 700 ₽</td>
-						</tr>
-						<tr>
-							<td>Устранение утечки хладагента</td>
+							<td>Замена помпы (насоса слива воды)</td>
 							<td>от 1100 ₽</td>
 						</tr>
 						<tr>
-							<td>Замена пускозащитного реле</td>
-							<td>от 800 ₽</td>
+							<td>Замена подшипников барабана</td>
+							<td>от 1500 ₽</td>
 						</tr>
 						<tr>
-							<td>Ремонт системы No Frost</td>
-							<td>от 1200 ₽</td>
+							<td>Чистка фильтров и устранение засоров</td>
+							<td>от 700 ₽</td>
 						</tr>
 						<tr>
-							<td>Замена вентилятора испарителя</td>
-							<td>от 1000 ₽</td>
-						</tr>
-						<tr>
-							<td>Устранение шума и вибрации</td>
-							<td>от 600 ₽</td>
-						</tr>
-						<tr>
-							<td>Замена дверных уплотнителей</td>
+							<td>Ремонт или замена люка (дверцы)</td>
 							<td>от 900 ₽</td>
 						</tr>
 						<tr>
-							<td>Настройка и подключение холодильника</td>
+							<td>Замена модуля блокировки дверцы (УБЛ)</td>
+							<td>от 1000 ₽</td>
+						</tr>
+						<tr>
+							<td>Устранение протечек</td>
+							<td>от 800 ₽</td>
+						</tr>
+						<tr>
+							<td>Замена заливного клапана</td>
+							<td>от 1000 ₽</td>
+						</tr>
+						<tr>
+							<td>Замена ремня барабана</td>
+							<td>от 800 ₽</td>
+						</tr>
+						<tr>
+							<td>Настройка и подключение стиральной машины</td>
 							<td>от 700 ₽</td>
 						</tr>
 						<tr>
@@ -385,43 +389,42 @@
 						<div class="slider-wrapper" id="sliderWrapper">
 							<div class="testimonial">
 								<p>
-									Холодильник перестал морозить. Мастер приехал в тот же день,
-									заправил фреон и проверил систему — теперь всё отлично
-									работает. Спасибо за скорость!
+									Стиральная машина перестала нагревать воду. Мастер приехал в
+									тот же день, заменил ТЭН — всё работает отлично. Спасибо за
+									оперативность!
 								</p>
-								<h4>— Марина ★★★★★</h4>
+								<h4>— Ольга ★★★★★</h4>
 							</div>
 							<div class="testimonial">
 								<p>
-									Внутри холодильника скапливалась вода. Специалист прочистил
-									дренаж, объяснил, как избежать проблемы в будущем. Очень
-									доволен качеством сервиса.
+									Машина не сливала воду. Диагностика показала проблему с
+									насосом. Быстро заменили, теперь всё в порядке. Очень довольна
+									сервисом.
 								</p>
-								<h4>— Игорь ★★★★★</h4>
+								<h4>— Алексей ★★★★★</h4>
 							</div>
 							<div class="testimonial">
 								<p>
-									Холодильник сильно шумел и вибрировал. Приехал мастер, заменил
-									вентилятор и провёл настройку — теперь работает тихо.
-									Благодарю!
+									При отжиме был сильный шум и стук. Оказалось — износились
+									подшипники. Ремонт занял несколько часов, теперь работает
+									тихо.
 								</p>
-								<h4>— Светлана ★★★★★</h4>
+								<h4>— Наталья ★★★★★</h4>
 							</div>
 							<div class="testimonial">
 								<p>
-									У холодильника не работал дисплей и не включалось освещение.
-									Оказалась проблема в плате управления. Быстро починили, всё
-									снова в порядке.
+									Стиралка не запускалась — ошибка на дисплее. Приехал мастер,
+									отремонтировал плату управления. Всё заработало, огромное
+									спасибо!
 								</p>
-								<h4>— Дмитрий ★★★★★</h4>
+								<h4>— Евгений ★★★★★</h4>
 							</div>
 							<div class="testimonial">
 								<p>
-									Перестал запускаться компрессор. Обратились за ремонтом —
-									заменили реле, холодильник снова работает. Отличный сервис и
-									вежливый мастер.
+									Протекала вода из-под машинки. Обратились в сервис — приехали,
+									устранили течь, дали рекомендации. Очень профессионально!
 								</p>
-								<h4>— Елена ★★★★★</h4>
+								<h4>— Виктория ★★★★★</h4>
 							</div>
 						</div>
 						<div class="controls">
@@ -460,7 +463,7 @@
 						<strong>Телефон:</strong>
 						<a
 							href="tel:+79010783108"
-							onclick="handleCallClick(); ym(103207586,'reachGoal','hd_call')"
+							onclick="handleCallClick(); ym(103207586,'reachGoal','stir_call')"
 							>+7 (901) 078-31-08</a
 						>
 					</p>
