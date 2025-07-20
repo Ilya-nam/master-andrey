@@ -383,7 +383,7 @@ document
 			description:
 				'Описание от клиента:\n' +
 				desc +
-				`\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт холодильников\n Город не известен УТОЧНИТЬ\nИнформация о клиенте:\nclientID: ${clientID}\nГруппа: ${getUTMGroup(
+				`\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт холодильников\nИнформация о клиенте:\nclientID: ${clientID}\nГруппа: ${getUTMGroup(
 					utmDataString
 				)}\nЗапрос: ${
 					yandexSearchQuery || getUTMTerm(utmDataString)
@@ -490,7 +490,7 @@ document
 		const leadData = {
 			phones: [phone],
 			name: name,
-			description: `Описание от клиента:\nБез описания\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт холодильников\n Город не известен УТОЧНИТЬ\nИнформация о клиенте\nclientID: ${clientID}\nГруппа: ${getUTMGroup(
+			description: `Описание от клиента:\nБез описания\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт холодильников\nИнформация о клиенте\nclientID: ${clientID}\nГруппа: ${getUTMGroup(
 				utmDataString
 			)}\nЗапрос: ${
 				yandexSearchQuery || getUTMTerm(utmDataString)
