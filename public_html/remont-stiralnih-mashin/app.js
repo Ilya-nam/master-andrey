@@ -288,13 +288,40 @@ const counterId = 103207586
 
 function getVladivostokTime() {
 	const now = new Date()
-	return now.toLocaleTimeString('ru-RU', {
+
+	const options = {
 		timeZone: 'Asia/Vladivostok',
-		hour12: false,
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
 		hour: '2-digit',
 		minute: '2-digit',
 		second: '2-digit',
-	})
+		hour12: false,
+	}
+
+	const formatter = new Intl.DateTimeFormat('ru-RU', options)
+	const parts = formatter.formatToParts(now)
+
+	let date = ''
+	let time = ''
+
+	for (const part of parts) {
+		if (part.type === 'day' || part.type === 'month' || part.type === 'year') {
+			date += part.value + '.'
+		} else if (
+			part.type === 'hour' ||
+			part.type === 'minute' ||
+			part.type === 'second'
+		) {
+			time += part.value + ':'
+		}
+	}
+
+	date = date.slice(0, -1)
+	time = time.slice(0, -1)
+
+	return `${date} ${time}`
 }
 
 function sendToTelegram(message) {
@@ -312,7 +339,7 @@ function sendToTelegram(message) {
 function handleCallClick() {
 	const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 	const vdkTime = getVladivostokTime()
-	const message = `📞 Клиент нажал "Позвонить" Ремонт СМ\n🕒 Время (ВДК): ${vdkTime}\n🆔 clientID: ${clientID}\nМС: Андрей Валерьевич БТ\nЗапрос: ${
+	const message = `📞 Клиент нажал "Позвонить" Ремонт СМ\n🕒 Время отправки ВДК: ${vdkTime}\n🆔 clientID: ${clientID}\nМС: Андрей Валерьевич БТ\nЗапрос: ${
 		yandexSearchQuery || getUTMTerm(utmDataString)
 	}\nГруппа: ${getUTMGroup(utmDataString)}`
 	sendToTelegram(message)
