@@ -340,10 +340,22 @@ function sendToTelegram(message) {
 function handleCallClick() {
 	const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 	const vdkTime = getVladivostokTime()
-	const message = `📞 Клиент нажал "Позвонить" Ремонт ПК\n🕒 Время отправки ВДК: ${vdkTime}\n🆔 clientID: ${clientID} \nЗапрос: ${
+	const storageKey = `call_clicked_${clientID}`
+
+	const now = Date.now()
+	const lastSent = parseInt(localStorage.getItem(storageKey), 10)
+
+	if (!isNaN(lastSent) && now - lastSent < 86400000) {
+		return
+	}
+
+	const message = `📞 Клиент нажал "Позвонить" Ремонт ПК\n🕒 Время отправки ВДК: ${vdkTime}\n🆔 clientID: ${clientID}\nЗапрос: ${
 		yandexSearchQuery || getUTMTerm(utmDataString)
 	}\nГруппа: ${getUTMGroup(utmDataString)}\nМС: Андрей Валерьевич`
+
 	sendToTelegram(message)
+
+	localStorage.setItem(storageKey, now.toString())
 }
 
 document
