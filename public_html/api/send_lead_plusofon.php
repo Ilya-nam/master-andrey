@@ -65,8 +65,6 @@ $leadData = [
     'customer_name' => 'КЛ',
     'city_id' => 39,
     'description' => 'Пропущенный, Мастер Андрей Валерьевич',
-    'call_duration' => $duration,
-    'source' => 'plusofon_webhook'
 ];
 
 // URL и авторизация
