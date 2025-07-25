@@ -1,13 +1,9 @@
 <?php
 
 header('Content-Type: application/json');
-
 require_once __DIR__ . '/../../config.php';
 
-// Путь к лог-файлу
 $logFile = __DIR__ . '/../../calls_log.txt';
-
-// Получаем данные из тела запроса
 $rawInput = file_get_contents('php://input');
 parse_str($rawInput, $data);
 
@@ -17,78 +13,74 @@ if (!isset($data['from'], $data['to'], $data['duration'], $data['hook_event'])) 
     exit;
 }
 
+// Обрабатываем только завершение звонка
 if ($data['hook_event'] !== 'channel_destroy') {
     echo json_encode(['result' => true, 'message' => 'Событие не для обработки']);
     exit;
 }
 
-// Функция оставляет только цифры
+// Нормализация номера
 function digitsOnly($phone) {
     return preg_replace('/\D/', '', $phone);
 }
 
-// Проверка номера
 $targetNumberLast10 = '9010782932';
-$toNumberLast10 = mb_substr(digitsOnly($data['to']), -10);
-
-if ($toNumberLast10 !== $targetNumberLast10) {
+$toLast10 = mb_substr(digitsOnly($data['to']), -10);
+if ($toLast10 !== $targetNumberLast10) {
     echo json_encode(['result' => false, 'message' => 'Номер не совпадает']);
     exit;
 }
 
-// Проверка длительности
 $duration = (int)$data['duration'];
 if ($duration >= 50) {
     echo json_encode(['result' => false, 'message' => 'Звонок слишком длинный']);
     exit;
 }
 
-// Нормализация номера
-$fromDigits = digitsOnly($data['from']);
-$fromLast10 = mb_substr($fromDigits, -10);
+$fromLast10 = mb_substr(digitsOnly($data['from']), -10);
 $customerPhone = '+7' . $fromLast10;
-
-// === Проверка и очистка лога ===
-
 $now = time();
 $canSend = true;
-$newLog = [];
 
-if (file_exists($logFile)) {
-    $logLines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
-    foreach ($logLines as $line) {
-        [$loggedPhone, $timestamp] = explode('|', $line);
-        $timestamp = (int)$timestamp;
-
-        // Если запись моложе 15 минут — оставляем в логе
-        if (($now - $timestamp) < 900) {
-            $newLog[] = $line;
-
-            // Проверка на повтор
-            if ($loggedPhone === $customerPhone) {
-                $canSend = false;
-            }
-        }
-    }
-
-    // Перезаписываем лог-файл только с актуальными записями
-    file_put_contents($logFile, implode("\n", $newLog) . "\n");
-}
-
-if (!$canSend) {
-    echo json_encode(['result' => false, 'message' => 'Звонок уже был недавно']);
+// === Работа с логом с блокировкой ===
+$fp = fopen($logFile, 'c+'); // c+ = create if not exists, read/write
+if (!$fp) {
+    echo json_encode(['result' => false, 'message' => 'Ошибка открытия лог-файла']);
     exit;
 }
 
-// === Отправка лида ===
+flock($fp, LOCK_EX); // Блокировка
 
+$logLines = [];
+while (($line = fgets($fp)) !== false) {
+    $line = trim($line);
+    if ($line === '') continue;
+
+    [$loggedPhone, $timestamp] = explode('|', $line);
+    $timestamp = (int)$timestamp;
+
+    if (($now - $timestamp) <= 900) {
+        $logLines[] = "{$loggedPhone}|{$timestamp}";
+        if ($loggedPhone === $customerPhone) {
+            $canSend = false;
+        }
+    }
+}
+
+if (!$canSend) {
+    flock($fp, LOCK_UN);
+    fclose($fp);
+    echo json_encode(['result' => false, 'message' => 'Звонок уже был в течение 15 минут']);
+    exit;
+}
+
+// Отправка лида
 $leadData = [
     'customer_phone' => $customerPhone,
-    'customer_name' => 'Клиент',
+    'customer_name' => 'КЛ',
     'city_id' => 39,
     'description' => "Пропущенный звонок только что\nМастер Андрей Валерьевич\nОтправлено автоматически!",
-    'source_id' => 818,
+    'source_id' => 818
 ];
 
 $apiUrl = 'https://kp-lead-centre.ru/api/customer-request/create';
@@ -105,11 +97,21 @@ $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $error = curl_error($ch);
 curl_close($ch);
 
-// Если успешно — добавляем звонок в лог
 if ($httpCode === 200 && $response) {
-    file_put_contents($logFile, "{$customerPhone}|{$now}\n", FILE_APPEND);
+    // Обновляем лог внутри блокировки
+    $logLines[] = "{$customerPhone}|{$now}";
+
+    rewind($fp);             // перемещаем курсор в начало
+    ftruncate($fp, 0);       // очищаем файл
+    fwrite($fp, implode("\n", $logLines) . "\n"); // записываем обновлённый лог
+    fflush($fp);             // сбрасываем буфер
+    flock($fp, LOCK_UN);     // снимаем блокировку
+    fclose($fp);
+
     echo $response;
 } else {
+    flock($fp, LOCK_UN);
+    fclose($fp);
     echo json_encode([
         'result' => false,
         'message' => $error ?: 'Ошибка при обращении к API'
