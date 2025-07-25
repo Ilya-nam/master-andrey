@@ -4,91 +4,110 @@ header('Content-Type: application/json');
 
 require_once __DIR__ . '/../../config.php';
 
-// Получаем сырые данные из тела запроса (Plusofon отправляет в формате application/x-www-form-urlencoded)
+// Путь к лог-файлу
+$logFile = __DIR__ . '/../../calls_log.txt';
+
+// Получаем данные из тела запроса
 $rawInput = file_get_contents('php://input');
 parse_str($rawInput, $data);
 
-// Проверяем необходимые поля
+// Проверка обязательных полей
 if (!isset($data['from'], $data['to'], $data['duration'], $data['hook_event'])) {
-    echo json_encode([
-        'result' => false,
-        'message' => 'Отсутствуют обязательные поля'
-    ]);
+    echo json_encode(['result' => false, 'message' => 'Отсутствуют обязательные поля']);
     exit;
 }
 
-// Обрабатываем только событие завершения звонка
 if ($data['hook_event'] !== 'channel_destroy') {
     echo json_encode(['result' => true, 'message' => 'Событие не для обработки']);
     exit;
 }
 
-// Функция для оставления только цифр
+// Функция оставляет только цифры
 function digitsOnly($phone) {
     return preg_replace('/\D/', '', $phone);
 }
 
-// Целевой номер — последние 10 цифр
+// Проверка номера
 $targetNumberLast10 = '9010782932';
+$toNumberLast10 = mb_substr(digitsOnly($data['to']), -10);
 
-// Получаем последние 10 цифр поля to
-$toNumberDigits = digitsOnly($data['to']);
-$toNumberLast10 = mb_substr($toNumberDigits, -10);
-
-// Проверяем номер
 if ($toNumberLast10 !== $targetNumberLast10) {
-    echo json_encode([
-        'result' => false,
-        'message' => 'Номер не совпадает с нужным (по последним 10 цифрам)'
-    ]);
+    echo json_encode(['result' => false, 'message' => 'Номер не совпадает']);
     exit;
 }
 
-// Проверяем длительность звонка
+// Проверка длительности
 $duration = (int)$data['duration'];
 if ($duration >= 50) {
-    echo json_encode([
-        'result' => false,
-        'message' => 'Длительность звонка больше или равна 50 секунд'
-    ]);
+    echo json_encode(['result' => false, 'message' => 'Звонок слишком длинный']);
     exit;
 }
 
-// Формируем номер звонящего с +7 и последние 10 цифр
-$fromNumberDigits = digitsOnly($data['from']);
-$fromNumberLast10 = mb_substr($fromNumberDigits, -10);
-$customerPhone = '+7' . $fromNumberLast10;
+// Нормализация номера
+$fromDigits = digitsOnly($data['from']);
+$fromLast10 = mb_substr($fromDigits, -10);
+$customerPhone = '+7' . $fromLast10;
 
-// Формируем данные для отправки лида
+// === Проверка и очистка лога ===
+
+$now = time();
+$canSend = true;
+$newLog = [];
+
+if (file_exists($logFile)) {
+    $logLines = file($logFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    foreach ($logLines as $line) {
+        [$loggedPhone, $timestamp] = explode('|', $line);
+        $timestamp = (int)$timestamp;
+
+        // Если запись моложе 15 минут — оставляем в логе
+        if (($now - $timestamp) < 900) {
+            $newLog[] = $line;
+
+            // Проверка на повтор
+            if ($loggedPhone === $customerPhone) {
+                $canSend = false;
+            }
+        }
+    }
+
+    // Перезаписываем лог-файл только с актуальными записями
+    file_put_contents($logFile, implode("\n", $newLog) . "\n");
+}
+
+if (!$canSend) {
+    echo json_encode(['result' => false, 'message' => 'Звонок уже был недавно']);
+    exit;
+}
+
+// === Отправка лида ===
+
 $leadData = [
     'customer_phone' => $customerPhone,
-    'customer_name' => 'КЛ',
+    'customer_name' => 'Клиент',
     'city_id' => 39,
-    'description' => 'Пропущенный, Мастер Андрей Валерьевич',
+    'description' => "Пропущенный звонок только что\nМастер Андрей Валерьевич\nОтправлено автоматически!",
+    'source_id' => 818,
 ];
 
-// URL и авторизация
 $apiUrl = 'https://kp-lead-centre.ru/api/customer-request/create';
-
-// Авторизация из конфига
 $authHeader = 'Authorization: Basic ' . base64_encode(API_LOGIN . ':' . API_PASSWORD);
 
 $ch = curl_init($apiUrl);
-
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($leadData));
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    $authHeader,
-    'Content-Type: application/json'
-]);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [$authHeader, 'Content-Type: application/json']);
 
 $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $error = curl_error($ch);
 curl_close($ch);
 
+// Если успешно — добавляем звонок в лог
 if ($httpCode === 200 && $response) {
+    file_put_contents($logFile, "{$customerPhone}|{$now}\n", FILE_APPEND);
     echo $response;
 } else {
     echo json_encode([
