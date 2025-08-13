@@ -349,9 +349,13 @@ function handleCallClick() {
 		return
 	}
 
-	const message = `📞 Клиент нажал "Позвонить" Ремонт ПРИНТ\n🕒 Время отправки ВДК: ${vdkTime}\n🆔 clientID: ${clientID}\nЗапрос: ${
+	const message = `📞 ЗВОНОК\n🌐 Сайт: АНДРЕЙ\n🔍 Запрос: ${
 		yandexSearchQuery || getUTMTerm(utmDataString)
-	}\nГруппа: ${getUTMGroup(utmDataString)}\nМС: Андрей Валерьевич`
+	}\n⭐️Группа: ${getUTMGroup(
+		utmDataString
+	)}\nДата и время: ${vdkTime}\nCityID: ${getCityIdFromUTM(
+		utmDataString
+	)}\nClientID: ${clientID}`
 
 	sendToTelegram(message)
 
@@ -412,23 +416,19 @@ document
 		}
 
 		const vdkTime = getVladivostokTime()
-		const clientID = getYandexClientID(counterId) || 'clientID отсутствует'
 		const cityID = getCityIdFromUTM(utmDataString)
 
 		const data = {
 			city_id: cityID,
 			customer_phone: phone,
 			customer_name: name,
-			description:
-				'Описание от клиента:\n' +
-				desc +
-				`\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт и настройка принтеров\nИнформация о клиенте:\nClientID: ${
-					clientID || 'clientID отсутствует'
-				}\nЗапрос: ${
-					yandexSearchQuery || getUTMTerm(utmDataString)
-				}\nГруппа: ${getUTMGroup(
-					utmDataString
-				)}\nВремя отправки ВДК: ${vdkTime}`,
+			description: `✉️ ЛИД\n🌐 Сайт: АНДРЕЙ\n🗒 Описание от клиента: ${desc}\n🔎 Запрос: ${
+				yandexSearchQuery || getUTMTerm(utmDataString)
+			}\n⭐️ Группа: ${getUTMGroup(
+				utmDataString
+			)}\n📞 Номер телефона: ${phone}\nДата и время: ${vdkTime}\nCityID: ${getCityIdFromUTM(
+				utmDataString
+			)}\nClientID: ${getYandexClientID(counterId)}`,
 			source_id: 815,
 		}
 
@@ -527,11 +527,13 @@ document
 			city_id: cityID,
 			customer_phone: phone,
 			customer_name: name,
-			description: `Описание от клиента:\nБез описания\nЗаявка с сайта частный мастер Андрей Валерьевич\nРемонт и настройка принтеров\nИнформация о клиенте:\nClientID: ${
-				clientID || 'clientID отсутствует'
-			}\nЗапрос: ${
+			description: `✉️ ЛИД\n🌐 Сайт: АНДРЕЙ\n🗒 Описание от клиента: без описания\n🔎 Запрос: ${
 				yandexSearchQuery || getUTMTerm(utmDataString)
-			}\nГруппа: ${getUTMGroup(utmDataString)}\nВремя отправки ВДК: ${vdkTime}`,
+			}\n⭐️ Группа: ${getUTMGroup(
+				utmDataString
+			)}\n📞 Номер телефона: ${phone}\nДата и время: ${vdkTime}\nCityID: ${getCityIdFromUTM(
+				utmDataString
+			)}\nClientID: ${getYandexClientID(counterId)}`,
 			source_id: 815,
 		}
 
