@@ -112,6 +112,7 @@ function showFormMessage(text, type = 'success') {
 }
 
 let utmDataString = ''
+let yandexSearchQuery = null
 
 function collectUTMData() {
 	const urlParams = new URLSearchParams(window.location.search)
@@ -128,26 +129,38 @@ function collectUTMData() {
 	const parts = []
 
 	urlParams.forEach((value, key) => {
-		if (allowedKeys.includes(key)) {
+		if (allowedKeys.includes(key) && value) {
 			parts.push(`${key}=${encodeURIComponent(value)}`)
 		}
 	})
 
-	utmDataString = parts.join('&')
+	if (parts.length > 0) {
+		utmDataString = parts.join('&')
+		localStorage.setItem('utmData', utmDataString)
+	} else {
+		const stored = localStorage.getItem('utmData')
+		if (stored) utmDataString = stored
+	}
 }
-
-window.addEventListener('DOMContentLoaded', collectUTMData)
-
-let yandexSearchQuery = null
 
 function getYandexSearchQuery() {
 	try {
 		const ref = document.referrer
-		if (!ref) return null
-
-		const refUrl = new URL(ref)
-		if (refUrl.hostname.includes('yandex.')) {
-			return refUrl.searchParams.get('text')
+		if (ref) {
+			const refUrl = new URL(ref)
+			if (refUrl.hostname.includes('yandex.')) {
+				const query = refUrl.searchParams.get('text')
+				if (query) {
+					yandexSearchQuery = query
+					localStorage.setItem('yandexQuery', query)
+					return query
+				}
+			}
+		}
+		const stored = localStorage.getItem('yandexQuery')
+		if (stored) {
+			yandexSearchQuery = stored
+			return stored
 		}
 	} catch (e) {
 		return null
@@ -156,7 +169,8 @@ function getYandexSearchQuery() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-	yandexSearchQuery = getYandexSearchQuery()
+	collectUTMData()
+	getYandexSearchQuery()
 })
 
 function getUTMTerm(utmString) {
