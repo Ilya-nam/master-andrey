@@ -32,7 +32,7 @@ if ($toLast10 !== $targetNumberLast10) {
 }
 
 $duration = (int)$data['duration'];
-if ($duration >= 50) {
+if ($duration >= 59) {
     echo json_encode(['result' => false, 'message' => 'Звонок слишком длинный']);
     exit;
 }
