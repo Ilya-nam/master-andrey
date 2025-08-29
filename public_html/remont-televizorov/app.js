@@ -399,7 +399,7 @@ async function handleFormSubmit(e, options) {
 			let leadsSent = parseInt(localStorage.getItem('leads_sent') || '0')
 			localStorage.setItem('leads_sent', leadsSent + 1)
 			markLeadSentNow() // фиксируем время успешной отправки (кулдаун 15 минут)
-			ym(103207586, 'reachGoal', 'lead')
+			ym(103207586, 'reachGoal', 'tv_lead')
 			sendToTelegram(data.description)
 		} else {
 			showFormMessage(
