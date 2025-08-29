@@ -273,9 +273,7 @@ const counterId = 103207586
 
 // =================== ВРЕМЯ ===================
 function getVladivostokTime() {
-	const now = new Date()
-	return now.toLocaleString('ru-RU', {
-		timeZone: 'Asia/Vladivostok',
+	const options = {
 		year: 'numeric',
 		month: '2-digit',
 		day: '2-digit',
@@ -283,7 +281,18 @@ function getVladivostokTime() {
 		minute: '2-digit',
 		second: '2-digit',
 		hour12: false,
-	})
+		timeZone: 'Asia/Vladivostok',
+	}
+
+	const formatter = new Intl.DateTimeFormat('ru-RU', options)
+	const parts = formatter.formatToParts(new Date())
+
+	const map = {}
+	for (const part of parts) {
+		map[part.type] = part.value
+	}
+
+	return `${map.day}.${map.month}.${map.year} ${map.hour}:${map.minute}:${map.second}`
 }
 
 // =================== TELEGRAM ===================
